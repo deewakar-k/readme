@@ -17,7 +17,77 @@ model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
   name      String
+  email     String   @unique
+  password  String
   about     String?
+  job_role  String?
+  website   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Projects      Projects[]
+  Experience    Experience[]
+  Education     Education[]
+  Certification Certification[]
+  Contact       Contact[]
+}
+
+model Projects {
+  id          Int     @id @default(autoincrement())
+  title       String
+  year        String
+  url         String?
+  description String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Experience {
+  id          Int     @id @default(autoincrement())
+  title       String
+  company     String
+  description String?
+  from        String
+  to          String
+  location    String
+  url         String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Education {
+  id          Int     @id @default(autoincrement())
+  degree      String
+  school      String
+  description String?
+  from        String
+  to          String
+  location    String
+  url         String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Certification {
+  id           Int     @id @default(autoincrement())
+  name         String
+  year         String
+  organization String
+  url          String?
+  description  String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Contact {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  url  String
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 }
