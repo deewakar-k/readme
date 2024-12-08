@@ -7,4 +7,7 @@ import Google from "next-auth/providers/google";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
   adapter: DrizzleAdapter(db),
+  pages: {
+    signIn: "/signin",
+  },
 });
