@@ -8,18 +8,18 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-export const users = pgTable("user", {
+export const users = pgTable("users", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  display_name: text("name"),
+  name: text("name"),
   username: text("username").unique(),
-  email: text("email").unique(),
+  email: text("email").unique().notNull(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
   website: text("website"),
   bio: text("bio"),
   occupation: text("occupation"),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
 });
 
 export const accounts = pgTable(

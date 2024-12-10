@@ -1,7 +1,7 @@
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
-export const experiences = pgTable("experiences", {
+export const education = pgTable("education", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
