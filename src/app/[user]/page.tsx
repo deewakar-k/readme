@@ -1,6 +1,7 @@
 import { checkUsername } from "@/actions/user";
 import { auth } from "../auth";
 import { UsernameDialog } from "@/components/username-dialog";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -8,6 +9,11 @@ export default async function Page({
   params: Promise<{ user: string }>;
 }) {
   const session = await auth();
+
+  if (!session) {
+    redirect("/signin");
+  }
+
   const username = (await params).user;
   const exists = await checkUsername(username);
 
