@@ -6,7 +6,7 @@ export const Auth = () => {
     <>
       <section className="w-full max-w-sm">
         <header className="space-y-2">
-          <h1 className="font-semibold text-sm">Sign up</h1>
+          <h1 className="font-semibold text-sm">Sign in</h1>
           <p className="text-sm">to continue to readme.</p>
         </header>
 

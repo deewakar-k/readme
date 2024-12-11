@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import React from "react";
-import { auth, signIn } from "@/app/auth";
+import { signIn } from "@/app/auth";
 import { AuthError } from "next-auth";
 
 export const GoogleButton = () => {
@@ -10,12 +10,8 @@ export const GoogleButton = () => {
       action={async () => {
         "use server";
         try {
-          const session = await auth();
-          const redirectPath = session?.user?.username
-            ? `/${session.user.username}`
-            : "/setup";
           await signIn("google", {
-            redirectTo: redirectPath,
+            redirectTo: "/setup",
           });
         } catch (error) {
           if (error instanceof AuthError) {

@@ -1,6 +1,6 @@
 import { GithubIcon } from "lucide-react";
 import { Button } from "./ui/button";
-import { auth, signIn } from "@/app/auth";
+import { signIn } from "@/app/auth";
 import { AuthError } from "next-auth";
 
 export default async function GithubButton() {
@@ -9,12 +9,8 @@ export default async function GithubButton() {
       action={async () => {
         "use server";
         try {
-          const session = await auth();
-          const redirectPath = session?.user?.username
-            ? `/${session.user.username}`
-            : "/setup";
           await signIn("github", {
-            redirectTo: redirectPath,
+            redirectTo: "/setup",
           });
         } catch (error) {
           if (error instanceof AuthError) {
