@@ -1,5 +1,5 @@
 {
-  "id": "0c35af3e-2865-4941-b17a-e3d1c30b1405",
+  "id": "9ebbcf64-6374-4c7f-893d-d951df5cf087",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -162,6 +162,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "location": {
+          "name": "location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "year": {
           "name": "year",
           "type": "integer",
@@ -239,6 +245,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "company": {
+          "name": "company",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "year": {
           "name": "year",
           "type": "integer",
@@ -247,6 +259,12 @@
         },
         "link": {
           "name": "link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
           "type": "text",
           "primaryKey": false,
           "notNull": false

@@ -6,6 +6,7 @@ export const education = pgTable("education", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   institution: text("institution").notNull(),
+  location: text("location"),
   year: integer("year"),
   degree: text("degree").notNull(),
   description: text("description").notNull(),

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS "contacts" (
 CREATE TABLE IF NOT EXISTS "education" (
 	"id" text PRIMARY KEY NOT NULL,
 	"institution" text NOT NULL,
+	"location" text,
 	"year" integer,
 	"degree" text NOT NULL,
 	"description" text NOT NULL,
@@ -32,8 +33,10 @@ CREATE TABLE IF NOT EXISTS "education" (
 CREATE TABLE IF NOT EXISTS "experiences" (
 	"id" text PRIMARY KEY NOT NULL,
 	"title" text NOT NULL,
+	"company" text NOT NULL,
 	"year" integer,
 	"link" text,
+	"location" text,
 	"description" text NOT NULL,
 	"user_id" text NOT NULL,
 	"created_at" timestamp DEFAULT now(),

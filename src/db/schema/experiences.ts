@@ -6,8 +6,10 @@ export const experiences = pgTable("experiences", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   title: text("title").notNull(),
+  company: text("company").notNull(),
   year: integer("year"),
   link: text("link"),
+  location: text("location"),
   description: text("description").notNull(),
   user_id: text("user_id")
     .notNull()

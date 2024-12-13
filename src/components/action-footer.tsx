@@ -19,7 +19,7 @@ export const ActionFooter = () => {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
-          <div className="flex h-full">
+          <div className="flex h-[600px]">
             <DialogHeader className="border-r pr-4">
               <DialogNav />
             </DialogHeader>

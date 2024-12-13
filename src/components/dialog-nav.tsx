@@ -23,7 +23,7 @@ export const DialogNav = () => {
           key={section.id}
           onClick={() => setActiveSection(section.id)}
           className={cn(
-            "mb-2 cursor-pointer rounded-md p-2 text-sm font-normal hover:bg-zinc-100",
+            "mb-2 cursor-pointer rounded-md p-2 text-lg font-normal hover:bg-zinc-100",
             activeSection === section.id ? "bg-zinc-100" : "",
           )}
         >
