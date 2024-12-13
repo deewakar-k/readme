@@ -4,18 +4,10 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-
-const sections = [
-  { label: "profile" },
-  { label: "projects" },
-  { label: "experience" },
-  { label: "education" },
-  { label: "certification" },
-  { label: "contact" },
-];
+import { DialogNav } from "./dialog-nav";
+import { DialogBody } from "./dialog-body";
 
 export const ActionFooter = () => {
   return (
@@ -29,20 +21,9 @@ export const ActionFooter = () => {
         <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
           <div className="flex h-full">
             <DialogHeader className="border-r pr-4">
-              <nav>
-                {sections.map((section, index) => (
-                  <DialogTitle
-                    key={index}
-                    className="mb-2 cursor-pointer rounded-md p-2 text-sm font-normal hover:bg-zinc-100"
-                  >
-                    {section.label}
-                  </DialogTitle>
-                ))}
-              </nav>
+              <DialogNav />
             </DialogHeader>
-            <div className="flex-1 pl-8">
-              <h1 className="mb-4 text-lg font-semibold">Content</h1>
-            </div>
+            <DialogBody />
           </div>
         </DialogContent>
       </Dialog>
