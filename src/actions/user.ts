@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/app/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -28,4 +29,29 @@ export async function checkUsername(username: string) {
 
 export async function setUsername(userId: string, username: string) {
   await db.update(users).set({ username }).where(eq(users.id, userId));
+}
+
+export async function getUserDetails() {
+  try {
+    const session = await auth();
+
+    if (!session?.user.id) {
+      console.error("user id is undefined");
+      return null;
+    }
+
+    const userDetails = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, session?.user.id));
+
+    if (!userDetails) {
+      console.error("user doesnt exists");
+      return null;
+    }
+
+    return userDetails;
+  } catch (error) {
+    return console.error("failed to get user details: ", error);
+  }
 }

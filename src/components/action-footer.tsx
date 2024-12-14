@@ -9,7 +9,7 @@ import {
 import { DialogNav } from "./dialog-nav";
 import { DialogBody } from "./dialog-body";
 
-export const ActionFooter = () => {
+export default async function ActionFooter() {
   return (
     <>
       <Dialog>
@@ -32,4 +32,4 @@ export const ActionFooter = () => {
       </Button>
     </>
   );
-};
+}

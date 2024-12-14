@@ -2,7 +2,7 @@ import { checkUsername } from "@/actions/user";
 import { auth } from "../auth";
 import { UsernameDialog } from "@/components/username-dialog";
 import { notFound, redirect } from "next/navigation";
-import { ActionFooter } from "@/components/action-footer";
+import ActionFooter from "@/components/action-footer";
 
 export default async function Page({
   params,
@@ -16,10 +16,8 @@ export default async function Page({
   }
 
   const { user: username } = await params;
-  console.log("Current route username:", username);
 
   const exists = await checkUsername(username);
-  console.log("Username exists:", exists);
 
   if (!exists) {
     return notFound();
