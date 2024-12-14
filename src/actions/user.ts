@@ -1,8 +1,8 @@
 "use server";
 
-import { auth } from "@/app/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { User } from "@/types/user";
 import { eq } from "drizzle-orm";
 
 export async function checkUsername(username: string) {
@@ -31,27 +31,36 @@ export async function setUsername(userId: string, username: string) {
   await db.update(users).set({ username }).where(eq(users.id, userId));
 }
 
-export async function getUserDetails() {
+export async function getUserDetails(username: string) {
   try {
-    const session = await auth();
-
-    if (!session?.user.id) {
-      console.error("user id is undefined");
+    if (!username) {
+      console.error("username is undefined");
       return null;
     }
 
     const userDetails = await db
       .select()
       .from(users)
-      .where(eq(users.id, session?.user.id));
+      .where(eq(users.username, username))
+      .limit(1);
 
     if (!userDetails) {
       console.error("user doesnt exists");
       return null;
     }
 
-    return userDetails;
+    console.log("userdetails: ", userDetails);
+
+    return userDetails[0];
   } catch (error) {
-    return console.error("failed to get user details: ", error);
+    console.error("failed to get user details: ", error);
+  }
+}
+
+export async function setUserDetails(data: Partial<User>, username: string) {
+  try {
+    await db.update(users).set(data).where(eq(users.username, username));
+  } catch (error) {
+    console.error("error updating user details: ", error);
   }
 }

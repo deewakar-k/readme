@@ -8,14 +8,12 @@ export const ProfileInput = () => {
   const pathname = usePathname();
   const username = pathname.split("/")[1];
 
-  const { data: userDetails, error } = useUser();
+  const { data: user, error } = useUser(username);
 
   if (error) {
     return <div>error loading user details</div>;
   }
-  if (!userDetails) return <div>no user data found</div>;
-
-  const user = userDetails[0];
+  if (!user) return <div>no user data found</div>;
 
   return (
     <section className="flex flex-col gap-4 ml-4 mr-8">
@@ -38,7 +36,11 @@ export const ProfileInput = () => {
           className="w-full"
         />
       </div>
-      <LabelInput label="display name" placeholder={"display name"} />
+      <LabelInput
+        label="display name"
+        value={user?.name || ""}
+        placeholder={"display name"}
+      />
       <LabelInput label="what do you do?" placeholder={"cook"} />
       <LabelInput label="website" placeholder={"your pretty website"} />
       <LabelTextArea
