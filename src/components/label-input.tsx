@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 
 interface LabelInputProps {
   value?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   placeholder: string;
   className?: string;

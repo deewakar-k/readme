@@ -49,8 +49,6 @@ export async function getUserDetails(username: string) {
       return null;
     }
 
-    console.log("userdetails: ", userDetails);
-
     return userDetails[0];
   } catch (error) {
     console.error("failed to get user details: ", error);

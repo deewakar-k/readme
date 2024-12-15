@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import {
   Select,
@@ -8,26 +6,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 
-const YearSelect = () => {
-  const currentYear = new Date().getFullYear();
-  const startYear = 2000;
-  const years = Array.from(
-    { length: currentYear - startYear + 1 },
-    (_, index) => currentYear - index,
+interface YearSelectProps {
+  value: number;
+  onChange: (value: number) => void;
+  startYear?: number;
+  endYear?: number;
+  label?: string;
+  className?: string;
+}
+
+export const YearSelect: React.FC<YearSelectProps> = ({
+  value,
+  onChange,
+  startYear = 2000,
+  endYear = new Date().getFullYear(),
+  label = "year",
+  className = "",
+}) => {
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) =>
+    (endYear - i).toString(),
   );
 
   return (
-    <div className="w-[250px] space-y-2">
-      <Label htmlFor="year-select">Project Year</Label>
-      <Select>
-        <SelectTrigger id="year-select">
-          <SelectValue placeholder="Select year" />
+    <div className={`flex items-center gap-2 ${className}`}>
+      <label htmlFor="year-select" className="text-sm">
+        {label}
+      </label>
+      <Select value={value.toString()} onValueChange={onChange}>
+        <SelectTrigger id="year-select" className="w-full">
+          <SelectValue placeholder="2025" />
         </SelectTrigger>
         <SelectContent>
           {years.map((year) => (
-            <SelectItem key={year} value={year.toString()}>
+            <SelectItem key={year} value={year}>
               {year}
             </SelectItem>
           ))}
@@ -36,5 +48,3 @@ const YearSelect = () => {
     </div>
   );
 };
-
-export default YearSelect;
