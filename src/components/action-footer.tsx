@@ -19,7 +19,7 @@ export default async function ActionFooter() {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
-          <div className="flex h-[600px]">
+          <div className="flex h-[700px]">
             <DialogHeader className="border-r pr-4">
               <DialogNav />
             </DialogHeader>

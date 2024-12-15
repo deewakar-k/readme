@@ -4,6 +4,7 @@ import { Label } from "./ui/label";
 
 interface LabelInputProps {
   value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   placeholder: string;
   className?: string;
@@ -14,6 +15,7 @@ export const LabelInput = ({
   label,
   placeholder,
   className,
+  onChange,
 }: LabelInputProps) => {
   return (
     <div className={className}>
@@ -21,6 +23,7 @@ export const LabelInput = ({
         {label}
       </Label>
       <Input
+        onChange={onChange}
         className="placeholder:text-xs"
         defaultValue={value}
         placeholder={`${placeholder}`}

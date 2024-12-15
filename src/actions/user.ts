@@ -59,7 +59,7 @@ export async function getUserDetails(username: string) {
 
 export async function setUserDetails(data: Partial<User>, username: string) {
   try {
-    await db.update(users).set(data).where(eq(users.username, username));
+    return await db.update(users).set(data).where(eq(users.username, username));
   } catch (error) {
     console.error("error updating user details: ", error);
   }

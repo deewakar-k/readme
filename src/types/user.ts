@@ -1,8 +1,8 @@
 export interface User {
-  name: string;
-  username: string;
-  image: string;
-  website: string;
-  bio: string;
-  occupation: string;
+  name?: string | null;
+  username?: string | null;
+  image?: string | null;
+  website?: string | null;
+  bio?: string | null;
+  occupation?: string | null;
 }
