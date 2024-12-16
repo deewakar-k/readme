@@ -24,8 +24,12 @@ export const YearSelect: React.FC<YearSelectProps> = ({
   label = "year",
   className = "",
 }) => {
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) =>
-    (endYear - i).toString(),
+  const years = React.useMemo(
+    () =>
+      Array.from({ length: endYear - startYear + 1 }, (_, i) =>
+        (endYear - i).toString()
+      ),
+    [startYear, endYear]
   );
 
   return (
@@ -33,9 +37,12 @@ export const YearSelect: React.FC<YearSelectProps> = ({
       <label htmlFor="year-select" className="text-sm">
         {label}
       </label>
-      <Select value={value.toString()} onValueChange={onChange}>
+      <Select
+        value={value ? value.toString() : undefined}
+        onValueChange={(val: string) => onChange(parseInt(val, 10))}
+      >
         <SelectTrigger id="year-select" className="w-full">
-          <SelectValue placeholder="2025" />
+          <SelectValue placeholder="Select year" />
         </SelectTrigger>
         <SelectContent>
           {years.map((year) => (
@@ -48,3 +55,5 @@ export const YearSelect: React.FC<YearSelectProps> = ({
     </div>
   );
 };
+
+export default YearSelect;

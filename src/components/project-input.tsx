@@ -7,15 +7,19 @@ import { YearSelect } from "./select-year";
 import { useCreateProject } from "@/queries/project";
 import { useState } from "react";
 import { Project } from "@/types/project";
+import { useShowInputStore } from "@/store/input";
 
 interface ProjectInputProps {
   onBackAction: () => void;
 }
 
 export const ProjectInput = ({ onBackAction }: ProjectInputProps) => {
+  const { setShowInput } = useShowInputStore();
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
-  const [selectedYear, setSelectedYear] = useState(0);
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear()
+  );
   const [description, setDescription] = useState("");
 
   const createProject = useCreateProject();
@@ -28,6 +32,7 @@ export const ProjectInput = ({ onBackAction }: ProjectInputProps) => {
       description: description,
     };
     createProject.mutate(data);
+    setShowInput(false);
   };
 
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import { HardDriveDownload, UserPen } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -9,7 +11,7 @@ import {
 import { DialogNav } from "./dialog-nav";
 import { DialogBody } from "./dialog-body";
 
-export default async function ActionFooter() {
+export default function ActionFooter() {
   return (
     <>
       <Dialog>
@@ -18,8 +20,13 @@ export default async function ActionFooter() {
             <UserPen /> edit profile
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
-          <div className="flex h-[700px]">
+        <DialogContent
+          className="sm:max-w-[425px] md:max-w-[700px]"
+          onInteractOutside={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <div className="flex h-full">
             <DialogHeader className="border-r pr-4">
               <DialogNav />
             </DialogHeader>
