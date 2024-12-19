@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS "contacts" (
 CREATE TABLE IF NOT EXISTS "education" (
 	"id" text PRIMARY KEY NOT NULL,
 	"institution" text NOT NULL,
-	"location" text,
-	"year" integer,
+	"location" text NOT NULL,
+	"year" integer NOT NULL,
 	"degree" text NOT NULL,
 	"description" text NOT NULL,
 	"user_id" text NOT NULL,

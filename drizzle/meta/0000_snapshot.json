@@ -1,5 +1,5 @@
 {
-  "id": "9ebbcf64-6374-4c7f-893d-d951df5cf087",
+  "id": "03c12f74-741e-4476-9952-73384b5c4b8e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -166,13 +166,13 @@
           "name": "location",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "year": {
           "name": "year",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "degree": {
           "name": "degree",
