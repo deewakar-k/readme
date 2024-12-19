@@ -27,13 +27,13 @@ export const YearSelect: React.FC<YearSelectProps> = ({
   const years = React.useMemo(
     () =>
       Array.from({ length: endYear - startYear + 1 }, (_, i) =>
-        (endYear - i).toString()
+        (endYear - i).toString(),
       ),
-    [startYear, endYear]
+    [startYear, endYear],
   );
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`${className}`}>
       <label htmlFor="year-select" className="text-sm">
         {label}
       </label>

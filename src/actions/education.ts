@@ -3,7 +3,7 @@
 import { auth } from "@/app/auth";
 import { db } from "@/db";
 import { education } from "@/db/schema";
-import { newEducation } from "@/types/education";
+import { EducationInput } from "@/types/education";
 import { eq } from "drizzle-orm";
 
 export async function getEducations() {
@@ -25,7 +25,7 @@ export async function getEducations() {
   }
 }
 
-export async function createEducation(data: newEducation) {
+export async function createEducation(data: EducationInput) {
   try {
     const session = await auth();
 

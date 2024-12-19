@@ -8,6 +8,13 @@
       "when": 1734619325921,
       "tag": "0000_normal_anita_blake",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1734631925299,
+      "tag": "0001_modern_earthquake",
+      "breakpoints": true
     }
   ]
 }

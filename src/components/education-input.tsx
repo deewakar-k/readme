@@ -3,7 +3,7 @@ import { LabelInput } from "./label-input";
 import { LabelTextArea } from "./label-textarea";
 import { useState } from "react";
 import { useCreateEducation } from "@/queries/education";
-import { Education } from "@/types/education";
+import { EducationInput as EducationInputType } from "@/types/education";
 import YearSelect from "./select-year";
 import { Button } from "./ui/button";
 
@@ -24,7 +24,7 @@ export const EducationInput = ({ onBackAction }: EducationInputProps) => {
   const createEducation = useCreateEducation();
 
   const handleSave = () => {
-    const data: Education = {
+    const data: EducationInputType = {
       degree: degree,
       institution: institution,
       year: selectedYear,
@@ -50,13 +50,20 @@ export const EducationInput = ({ onBackAction }: EducationInputProps) => {
         placeholder="MIT"
       />
 
-      <LabelInput
-        label="location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-        placeholder="location"
-      />
-      <YearSelect value={selectedYear} onChange={setSelectedYear} />
+      <div className="flex gap-4 w-full">
+        <LabelInput
+          className="w-full"
+          label="location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="location"
+        />
+        <YearSelect
+          className="w-full"
+          value={selectedYear}
+          onChange={setSelectedYear}
+        />
+      </div>
 
       <LabelTextArea
         label="description"
