@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import Providers from "./providers";
+import { geist } from "./ui/fonts";
 
 export const metadata: Metadata = {
   title: "Create Zen App",
@@ -23,9 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="h-screen w-screen">
-        <main className="dark flex-grow">{children}</main>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`h-screen w-screen ${geist.className}`}>
+        <Providers>
+          <main className="flex-grow">{children}</main>
+        </Providers>
       </body>
     </html>
   );
