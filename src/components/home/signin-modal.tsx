@@ -11,7 +11,7 @@ export const SignInModal = () => {
 	const handleSignIn = async (provider: "google" | "github") => {
 		toast.promise(signIn.social({
 			provider: provider,
-			callbackURL: "/"
+			callbackURL: "/readme"
 		}), {
 			loading: 'redirecting...',
 			success: 'redirected successfully',
@@ -20,7 +20,7 @@ export const SignInModal = () => {
 	}
 
 	return (
-		<DialogContent className="sm:max-w-[425px]">
+		<DialogContent className="sm:max-w-[380px]">
 			<DialogHeader className="font-medium leading-none">
 				<DialogTitle>
 					Welcome to readme 🌱
