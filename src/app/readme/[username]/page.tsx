@@ -1,3 +1,5 @@
+import { Header } from "@/components/profile/header"
+
 interface PageProps {
 	params: Promise<{
 		username: string
@@ -5,8 +7,9 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-	const { username } = await params
 	return (
-		<h1>hi {username}</h1>
+		<div className="flex flex-col items-center justify-center">
+			<Header />
+		</div>
 	)
 }
