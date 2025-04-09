@@ -4,11 +4,13 @@ const projects = [
   {
     header: "Ongoing",
     title: "readme",
+    url: "https://github.com/deewakar-k/readme",
     description: "a clean resume builder",
   },
   {
     header: "2025",
     title: "celestial",
+    url: "https://celestial.deewakar.info/",
     description: "craft your ui universe with celestial",
   },
 ];
@@ -21,6 +23,7 @@ export const Projects = async () => {
         <Content
           header={project.header}
           title={project.title}
+          url={project.url}
           description={project.description}
           key={project.title}
         />

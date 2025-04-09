@@ -1,35 +1,34 @@
-"use server"
+"use server";
 
-import { db } from "@/db"
-import { user } from "@/db/schema"
-import { auth } from "@/lib/auth"
-import { eq } from "drizzle-orm"
-import { headers } from "next/headers"
+import { headers } from "next/headers";
+
+import { eq } from "drizzle-orm";
+
+import { db } from "@/db";
+import { user } from "@/db/schema";
+import { auth } from "@/lib/auth";
 
 export const getUser = async () => {
-	const session = await auth.api.getSession({
-		headers: await headers()
-	})
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-	if (!session) {
-		throw new Error("not authenticated")
-	}
+  if (!session) {
+    throw new Error("not authenticated");
+  }
 
-	try {
+  try {
+    const userId = session.user.id;
+    const userProfile = await db.query.user.findFirst({
+      where: eq(user?.id, userId),
+    });
 
-		const userId = session.user.id
-		const userProfile = await db.query.user.findFirst({
-			where: eq(user?.id, userId)
-		})
+    if (!userProfile) {
+      console.error("user not found");
+    }
 
-		if (!userProfile) {
-			console.error("user not found")
-		}
-
-		return userProfile
-
-	} catch (error) {
-		console.error("error fetching user data")
-	}
-
-}
+    return userProfile;
+  } catch (error) {
+    console.error("error fetching user data: ", error);
+  }
+};
