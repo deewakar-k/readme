@@ -1,15 +1,13 @@
-import { Header } from "@/components/profile/header"
+import { About } from "@/components/profile/about";
+import { Header } from "@/components/profile/header";
+import { Projects } from "@/components/profile/projects";
 
-interface PageProps {
-	params: Promise<{
-		username: string
-	}>
-}
-
-export default async function Page({ params }: PageProps) {
-	return (
-		<div className="flex flex-col items-center justify-center">
-			<Header />
-		</div>
-	)
+export default async function Page() {
+  return (
+    <div className="mx-auto mt-8 flex max-w-lg flex-col items-start justify-start gap-4">
+      <Header />
+      <About />
+      <Projects />
+    </div>
+  );
 }
