@@ -1,3 +1,4 @@
+import { ContentDialog } from "@/components/content-dialog";
 import { About } from "@/components/profile/about";
 import { Contacts } from "@/components/profile/contact";
 import { Header } from "@/components/profile/header";
@@ -12,6 +13,9 @@ export default async function Page() {
       <Projects />
       <WorkExperience />
       <Contacts />
+      <div className="fixed right-4 bottom-2">
+        <ContentDialog />
+      </div>
     </div>
   );
 }

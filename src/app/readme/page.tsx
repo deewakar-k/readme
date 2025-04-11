@@ -16,5 +16,5 @@ export default function Page() {
     } else {
       router.push("/");
     }
-  }, [session]);
+  }, [session, router]);
 }
