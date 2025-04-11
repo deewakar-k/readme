@@ -20,6 +20,7 @@ import {
 
 import { Button } from "../ui/button";
 import { SidebarProvider } from "../ui/sidebar";
+import Profile from "./profile";
 import { ContentSidebar } from "./sidebar";
 
 export const ContentDialog = () => {
@@ -36,7 +37,7 @@ export const ContentDialog = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "profile":
-        return <div>this is profile content</div>;
+        return <Profile />;
       case "about":
         return <div>this is about content</div>;
       case "projects":
@@ -51,12 +52,9 @@ export const ContentDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant={"outline"}
-          size={"icon"}
-          className="rounded-full shadow-md"
-        >
+        <Button variant={"outline"} className="rounded-xl shadow-md">
           <Pencil />
+          <span>Edit</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="h-[80vh] max-h-[700px] overflow-hidden p-0 sm:max-w-[900px]">

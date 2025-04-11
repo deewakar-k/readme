@@ -13,7 +13,7 @@ export default async function Page() {
       <Projects />
       <WorkExperience />
       <Contacts />
-      <div className="fixed right-4 bottom-2">
+      <div className="fixed right-4 bottom-3">
         <ContentDialog />
       </div>
     </div>
