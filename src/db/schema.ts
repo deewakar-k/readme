@@ -1,4 +1,4 @@
-import { boolean, date, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -16,7 +16,33 @@ export const projects = pgTable("projects", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   url: text("url"),
-  date: date("date").notNull(),
+  date: text("date").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const work_experience = pgTable("work_experience", {
+  id: text("id").primaryKey(),
+  organization: text("organization").notNull(),
+  role: text("role").notNull(),
+  url: text("url"),
+  location: text("location"),
+  date: text("date"),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const contacts = pgTable("contacts", {
+  id: text("id").primaryKey(),
+  platform: text("platform").notNull(),
+  title: text("title").notNull(),
+  url: text("url").notNull(),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
