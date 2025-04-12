@@ -7,7 +7,9 @@ import { User } from "lucide-react";
 
 import { useUser } from "@/hooks/use-user";
 
+import { InputBox } from "../input-box";
 import { Loader } from "../loader";
+import { CustomTextArea } from "../text-area";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 
 export default function Profile() {
@@ -26,8 +28,43 @@ export default function Profile() {
 
   return (
     <div className="flex items-start justify-start p-8">
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex w-full max-w-md flex-col items-center gap-4">
         <ProfileImage user={user} />
+        <InputBox
+          label="username"
+          value={""}
+          placeholder="your unique handle"
+        />
+
+        <InputBox
+          label="display name"
+          value={user?.name || ""}
+          placeholder="your handle"
+        />
+
+        <InputBox
+          label="what do you do?"
+          value={""}
+          placeholder="software engineer, etc"
+        />
+
+        <InputBox
+          label="location"
+          value={""}
+          placeholder="where you're based"
+        />
+
+        <InputBox
+          label="website"
+          value={""}
+          placeholder="http://localhost:3000"
+        />
+
+        <CustomTextArea
+          label="about"
+          defaultValue=""
+          placeholder="something about you..."
+        />
       </div>
     </div>
   );
