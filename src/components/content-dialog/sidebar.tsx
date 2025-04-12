@@ -38,6 +38,7 @@ export const ContentSidebar = ({
                   <SidebarMenuButton
                     isActive={activeSection === section.id}
                     onClick={() => setActiveSection(section.id)}
+                    className="cursor-pointer"
                   >
                     <section.icon className="mr-2 h-4 w-4" />
                     <span>{section.label}</span>

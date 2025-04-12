@@ -32,7 +32,7 @@ export default function Profile() {
         <ProfileImage user={user} />
         <InputBox
           label="username"
-          value={""}
+          value={user?.username || ""}
           placeholder="your unique handle"
         />
 
@@ -44,25 +44,25 @@ export default function Profile() {
 
         <InputBox
           label="what do you do?"
-          value={""}
+          value={user?.bio || ""}
           placeholder="software engineer, etc"
         />
 
         <InputBox
           label="location"
-          value={""}
+          value={user?.location || ""}
           placeholder="where you're based"
         />
 
         <InputBox
           label="website"
-          value={""}
+          value={user?.website || ""}
           placeholder="http://localhost:3000"
         />
 
         <CustomTextArea
           label="about"
-          defaultValue=""
+          defaultValue={user?.about || ""}
           placeholder="something about you..."
         />
       </div>

@@ -28,7 +28,6 @@ export const ContentDialog = () => {
 
   const sections = [
     { id: "profile", label: "Profile", icon: User },
-    { id: "about", label: "About", icon: Info },
     { id: "projects", label: "Projects", icon: FolderKanban },
     { id: "experience", label: "Work Experience", icon: Briefcase },
     { id: "contacts", label: "Contacts", icon: Phone },
@@ -38,8 +37,6 @@ export const ContentDialog = () => {
     switch (activeSection) {
       case "profile":
         return <Profile />;
-      case "about":
-        return <div>this is about content</div>;
       case "projects":
         return <div>this is projects content</div>;
       case "experience":
