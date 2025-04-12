@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 
-import {
-  Briefcase,
-  FolderKanban,
-  Info,
-  Pencil,
-  Phone,
-  User,
-} from "lucide-react";
+import { Briefcase, FolderKanban, Pencil, Phone, User } from "lucide-react";
 
 import {
   Dialog,
@@ -20,7 +13,10 @@ import {
 
 import { Button } from "../ui/button";
 import { SidebarProvider } from "../ui/sidebar";
+import { ContactsContent } from "./contacts";
+import { WorkContent } from "./experience";
 import Profile from "./profile";
+import { ProjectContent } from "./projects";
 import { ContentSidebar } from "./sidebar";
 
 export const ContentDialog = () => {
@@ -38,11 +34,11 @@ export const ContentDialog = () => {
       case "profile":
         return <Profile />;
       case "projects":
-        return <div>this is projects content</div>;
+        return <ProjectContent />;
       case "experience":
-        return <div>this is experience content</div>;
+        return <WorkContent />;
       case "contacts":
-        return <div>this is contacts content</div>;
+        return <ContactsContent />;
     }
   };
 
@@ -63,7 +59,9 @@ export const ContentDialog = () => {
               activeSection={activeSection}
               setActiveSection={setActiveSection}
             />
-            <div className="flex-1 overflow-auto">{renderContent()}</div>
+            <div className="flex flex-1">
+              <div className="w-full max-w-lg p-8">{renderContent()}</div>
+            </div>
           </SidebarProvider>
         </div>
       </DialogContent>

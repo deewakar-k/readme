@@ -11,6 +11,7 @@ import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Button } from "../ui/button";
 
 export default function Profile() {
   const { data: user, isLoading, error } = useUser();
@@ -27,45 +28,43 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex items-start justify-start p-8">
-      <div className="flex w-full max-w-md flex-col items-center gap-4">
-        <ProfileImage user={user} />
-        <InputBox
-          label="username"
-          value={user?.username || ""}
-          placeholder="your unique handle"
-        />
+    <div className="flex flex-col gap-4">
+      <ProfileImage user={user} />
+      <InputBox
+        label="username"
+        value={user?.username || ""}
+        placeholder="your unique handle"
+      />
 
-        <InputBox
-          label="display name"
-          value={user?.name || ""}
-          placeholder="your handle"
-        />
+      <InputBox
+        label="display name"
+        value={user?.name || ""}
+        placeholder="your handle"
+      />
 
-        <InputBox
-          label="what do you do?"
-          value={user?.bio || ""}
-          placeholder="software engineer, etc"
-        />
+      <InputBox
+        label="what do you do?"
+        value={user?.bio || ""}
+        placeholder="software engineer, etc"
+      />
 
-        <InputBox
-          label="location"
-          value={user?.location || ""}
-          placeholder="where you're based"
-        />
+      <InputBox
+        label="location"
+        value={user?.location || ""}
+        placeholder="where you're based"
+      />
 
-        <InputBox
-          label="website"
-          value={user?.website || ""}
-          placeholder="http://localhost:3000"
-        />
+      <InputBox
+        label="website"
+        value={user?.website || ""}
+        placeholder="http://localhost:3000"
+      />
 
-        <CustomTextArea
-          label="about"
-          defaultValue={user?.about || ""}
-          placeholder="something about you..."
-        />
-      </div>
+      <CustomTextArea
+        label="about"
+        defaultValue={user?.about || ""}
+        placeholder="something about you..."
+      />
     </div>
   );
 }
@@ -97,24 +96,34 @@ const ProfileImage = ({ user }: { user: any }) => {
 
   return (
     <>
-      <Avatar className="h-24 w-24" onClick={handleAvatarClick}>
-        {image ? (
-          <Image
-            src={image}
-            alt={user?.name || ""}
-            width={"96"}
-            height={"96"}
-            className="cursor-pointer object-cover"
-          />
-        ) : (
-          <AvatarFallback>
-            <User
-              strokeWidth={1.2}
-              className="text-muted-foreground h-12 w-12"
+      <div className="flex items-center gap-4">
+        <Avatar className="h-24 w-24" onClick={handleAvatarClick}>
+          {image ? (
+            <Image
+              src={image}
+              alt={user?.name || ""}
+              width={"96"}
+              height={"96"}
+              className="cursor-pointer object-cover"
             />
-          </AvatarFallback>
-        )}
-      </Avatar>
+          ) : (
+            <AvatarFallback className="cursor-pointer">
+              <User
+                strokeWidth={1.2}
+                className="text-muted-foreground h-12 w-12"
+              />
+            </AvatarFallback>
+          )}
+        </Avatar>
+
+        <Button
+          variant={"outline"}
+          className="cursor-pointer"
+          onClick={handleRemoveImage}
+        >
+          remove image
+        </Button>
+      </div>
 
       <input
         ref={fileInputRef}

@@ -15,7 +15,7 @@ const contacts = [
   },
 ];
 
-export const Contacts = async () => {
+export const Contacts = () => {
   return (
     <div className="mt-4 flex flex-col gap-3">
       <h1 className="mb-2">Contacts</h1>
