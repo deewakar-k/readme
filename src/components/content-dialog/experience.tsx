@@ -19,10 +19,8 @@ export const WorkContent = () => {
             <InputBox label="oranization" placeholder="Netflix" value="" />
             <YearSelector />
           </div>
-          <div className="flex items-center gap-2">
-            <InputBox label="link" placeholder="www.netflix.com" value="" />
-            <InputBox label="role" placeholder="swe" value="" />
-          </div>
+          <InputBox label="link" placeholder="www.netflix.com" value="" />
+          <InputBox label="role" placeholder="swe" value="" />
           <CustomTextArea
             label="description"
             placeholder="worked on security..."

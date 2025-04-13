@@ -9,41 +9,18 @@ import Content from "../content";
 import { GoBack } from "../go-back";
 import { InputBox } from "../input-box";
 
-const MAX_INPUTBOX = 5;
-
 export const ContactsContent = () => {
   const [addMore, setAddMore] = useState(false);
-  const [inputBox, setInputBox] = useState<string[]>([]);
-
-  const addInputBox = () => {
-    if (inputBox.length < MAX_INPUTBOX) {
-      setAddMore(true);
-      setInputBox([...inputBox, ""]);
-    }
-  };
-
-  const handleGoBack = () => {
-    setAddMore(false);
-    setInputBox([]);
-  };
-
-  const isLimitReached = inputBox.length >= MAX_INPUTBOX;
 
   return (
     <div className="flex flex-col gap-3">
       {addMore ? (
         <>
-          {inputBox.map((_, idx) => (
-            <div key={idx} className="flex items-center gap-4">
-              <InputBox label="platform" placeholder="github" value="" />
-
-              <InputBox
-                label="url"
-                placeholder="github.com/deewakar-k"
-                value=""
-              />
-            </div>
-          ))}
+          <div className="flex items-center gap-4">
+            <InputBox label="platform" placeholder="github" value="" />
+            <InputBox label="username" placeholder="deewakar-k" value="" />
+          </div>
+          <InputBox label="url" placeholder="github.com/deewakar-k" value="" />
         </>
       ) : (
         <>
@@ -59,8 +36,11 @@ export const ContactsContent = () => {
         </>
       )}
       <div className="fixed right-4 bottom-4 flex items-center gap-2">
-        {addMore ? <GoBack handleOnClick={handleGoBack} /> : ""}
-        {isLimitReached ? "" : <Add handleOnClick={addInputBox} />}{" "}
+        {addMore ? (
+          <GoBack handleOnClick={() => setAddMore(false)} />
+        ) : (
+          <Add handleOnClick={() => setAddMore(true)} />
+        )}
       </div>
     </div>
   );
