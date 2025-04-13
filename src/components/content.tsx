@@ -24,13 +24,18 @@ export default function Content({
   showAction = false,
 }: ContentProps) {
   return (
-    <div className={cn("group flex gap-6 py-4 text-white", className)}>
+    <div
+      className={cn(
+        "group flex gap-6 py-4 text-black dark:text-white",
+        className
+      )}
+    >
       <div className="text-muted-foreground w-24 text-sm">{header}</div>
       <div className="flex-1">
         {url ? (
           <Link
             href="#"
-            className="flex items-center gap-0.5 font-medium text-white hover:underline"
+            className="flex items-center gap-0.5 font-medium text-black hover:underline dark:text-white"
           >
             {title}{" "}
             <span>
@@ -38,7 +43,7 @@ export default function Content({
             </span>
           </Link>
         ) : (
-          <h3 className="font-medium text-white">{title}</h3>
+          <h3 className="text-blacl font-medium dark:text-white">{title}</h3>
         )}
         {description && (
           <p className="text-muted-foreground mt-1 text-sm">{description}</p>
