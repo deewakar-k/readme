@@ -1,5 +1,6 @@
 import { works } from "@/utils/mock-data";
 
+import { Add } from "../add-more";
 import Content from "../content";
 
 export const WorkContent = () => {
@@ -14,6 +15,9 @@ export const WorkContent = () => {
           key={idx}
         />
       ))}
+      <div className="fixed right-4 bottom-4">
+        <Add />
+      </div>
     </div>
   );
 };

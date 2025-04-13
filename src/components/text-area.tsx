@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
@@ -5,12 +7,14 @@ interface CustomTextAreaProps {
   label: string;
   defaultValue: string;
   placeholder: string;
+  className?: string;
 }
 
 export const CustomTextArea = ({
   label,
   defaultValue,
   placeholder,
+  className,
 }: CustomTextAreaProps) => {
   return (
     <div className="flex w-full flex-col gap-2">
@@ -20,7 +24,7 @@ export const CustomTextArea = ({
       <Textarea
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="resize-none rounded-xl"
+        className={cn("resize-none rounded-xl", className)}
       />
     </div>
   );

@@ -51,7 +51,7 @@ export const ContentDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="h-[80vh] max-h-[700px] overflow-hidden p-0 sm:max-w-[700px]">
-        <div className="flex h-full overflow-hidden">
+        <div className="flex h-full">
           <DialogTitle></DialogTitle>
           <SidebarProvider>
             <ContentSidebar
