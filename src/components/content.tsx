@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { ArrowUpRightIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -30,20 +28,23 @@ export default function Content({
         className
       )}
     >
-      <div className="text-muted-foreground w-24 text-sm">{header}</div>
+      <div className="text-muted-foreground w-24 text-sm capitalize">
+        {header}
+      </div>
       <div className="flex-1">
         {url ? (
-          <Link
-            href="#"
+          <a
+            href={url.startsWith("http") ? url : `https://${url}`}
+            target="_blank"
             className="flex items-center gap-0.5 font-medium text-black hover:underline dark:text-white"
           >
             {title}{" "}
             <span>
               <ArrowUpRightIcon className="size-4" strokeWidth={1.5} />
             </span>
-          </Link>
+          </a>
         ) : (
-          <h3 className="text-blacl font-medium dark:text-white">{title}</h3>
+          <h3 className="font-medium text-black dark:text-white">{title}</h3>
         )}
         {description && (
           <p className="text-muted-foreground mt-1 text-sm">{description}</p>

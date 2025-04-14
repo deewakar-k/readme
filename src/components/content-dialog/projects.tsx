@@ -4,7 +4,6 @@ import { projects } from "@/utils/mock-data";
 
 import { Add } from "../add-more";
 import Content from "../content";
-import { GoBack } from "../go-back";
 import { InputBox } from "../input-box";
 import { CustomTextArea } from "../text-area";
 import { YearSelector } from "../year-selector";
@@ -42,11 +41,7 @@ export const ProjectContent = () => {
         </>
       )}
       <div className="fixed right-4 bottom-4">
-        {add ? (
-          <GoBack handleOnClick={() => setAdd(false)} />
-        ) : (
-          <Add handleOnClick={() => setAdd(true)} />
-        )}
+        {add ? "" : <Add handleOnClick={() => setAdd(true)} />}
       </div>
     </div>
   );

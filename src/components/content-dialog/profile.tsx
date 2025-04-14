@@ -11,6 +11,7 @@ import { mutate } from "swr";
 import { updateUser } from "@/actions/user";
 import { useUser } from "@/hooks/use-user";
 
+import { Error } from "../error";
 import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
@@ -62,11 +63,7 @@ export default function Profile() {
 
   if (error) {
     console.error(error);
-    return (
-      <div className="mx-auto flex min-h-screen items-center justify-center">
-        oops error loading user profile.
-      </div>
-    );
+    return <Error label={"profile"} />;
   }
 
   return (

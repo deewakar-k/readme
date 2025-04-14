@@ -44,7 +44,7 @@ export const work_experience = pgTable("work_experience", {
 export const contacts = pgTable("contacts", {
   id: text("id").primaryKey(),
   platform: text("platform").notNull(),
-  title: text("title").notNull(),
+  username: text("title").notNull(),
   url: text("url").notNull(),
   userId: text("user_id")
     .notNull()

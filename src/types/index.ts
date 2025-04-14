@@ -7,3 +7,9 @@ export interface User {
   website: string;
   location: string;
 }
+
+export interface Contact {
+  platform: string;
+  username: string;
+  url: string;
+}
