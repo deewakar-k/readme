@@ -1,31 +1,27 @@
+import React, { forwardRef } from "react";
+
 import { cn } from "@/lib/utils";
 
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-interface InputBoxProps {
+interface InputBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  value: string;
-  placeholder: string;
   className?: string;
 }
 
-export const InputBox = ({
-  label,
-  value,
-  placeholder,
-  className,
-}: InputBoxProps) => {
-  return (
-    <div className={cn("flex w-full flex-col gap-2", className)}>
-      <Label htmlFor={label.toLocaleLowerCase()} className="ml-2">
-        {label}
-      </Label>
-      <Input
-        defaultValue={value}
-        placeholder={placeholder}
-        className="rounded-xl"
-      />
-    </div>
-  );
-};
+export const InputBox = forwardRef<HTMLInputElement, InputBoxProps>(
+  ({ label, className, id, ...props }, ref) => {
+    const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
+
+    return (
+      <div className={cn("flex w-full flex-col gap-2", className)}>
+        <Label htmlFor={inputId} className="ml-2">
+          {label}
+        </Label>
+        <Input id={inputId} ref={ref} className="rounded-xl" {...props} />
+      </div>
+    );
+  }
+);
+InputBox.displayName = "InputBox";

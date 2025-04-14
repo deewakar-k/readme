@@ -1,31 +1,34 @@
+import { forwardRef } from "react";
+
 import { cn } from "@/lib/utils";
 
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 
-interface CustomTextAreaProps {
+interface CustomTextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
-  defaultValue: string;
-  placeholder: string;
   className?: string;
 }
 
-export const CustomTextArea = ({
-  label,
-  defaultValue,
-  placeholder,
-  className,
-}: CustomTextAreaProps) => {
+export const CustomTextArea = forwardRef<
+  HTMLTextAreaElement,
+  CustomTextAreaProps
+>(({ label, className, id, ...props }, ref) => {
+  const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
+
   return (
-    <div className="flex w-full flex-col gap-2">
-      <Label htmlFor={label.toLocaleLowerCase()} className="ml-2">
+    <div className={cn("flex w-full flex-col gap-2", className)}>
+      <Label htmlFor={inputId} className="ml-2">
         {label}
       </Label>
       <Textarea
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        className={cn("resize-none rounded-xl", className)}
+        id={inputId}
+        ref={ref}
+        className="min-h-32 resize-none rounded-xl"
+        {...props}
       />
     </div>
   );
-};
+});
+CustomTextArea.displayName = "CustomTextArea";

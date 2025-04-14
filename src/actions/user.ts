@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { user } from "@/db/schema";
 import { auth } from "@/lib/auth";
+import { User } from "@/types";
 
 export const getUser = async () => {
   const session = await auth.api.getSession({
@@ -30,5 +31,35 @@ export const getUser = async () => {
     return userProfile;
   } catch (error) {
     console.error("error fetching user data: ", error);
+  }
+};
+
+export const updateUser = async (data: Partial<User>) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    throw new Error("not authenticated");
+  }
+
+  try {
+    const userId = session.user.id;
+    const result = await db
+      .update(user)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(user.id, userId))
+      .returning();
+
+    if (!result[0]) {
+      throw new Error("failed to update user");
+    }
+
+    return result[0];
+  } catch (error) {
+    console.error("error updating user data: ", error);
   }
 };

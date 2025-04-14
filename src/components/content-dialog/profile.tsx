@@ -4,7 +4,11 @@ import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 
 import { User } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
+import { updateUser } from "@/actions/user";
 import { useUser } from "@/hooks/use-user";
 
 import { InputBox } from "../input-box";
@@ -13,8 +17,46 @@ import { CustomTextArea } from "../text-area";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 
+interface ProfileFormInput {
+  username: string;
+  name: string;
+  bio: string;
+  location: string;
+  website: string;
+  about: string;
+}
+
 export default function Profile() {
   const { data: user, isLoading, error } = useUser();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty },
+  } = useForm<ProfileFormInput>({
+    values: user
+      ? {
+          username: user.username || "",
+          name: user.name || "",
+          bio: user.bio || "",
+          location: user.location || "",
+          website: user.website || "",
+          about: user.about || "",
+        }
+      : undefined,
+  });
+
+  const onSubmit = async (data: ProfileFormInput) => {
+    try {
+      const updatedUser = await updateUser(data);
+      if (updatedUser) {
+        mutate(updatedUser, { revalidate: false });
+        toast.success("profile updated!");
+      }
+    } catch (error) {
+      console.error("failed to update user profile: ", error);
+      toast.error("failed to update profile");
+    }
+  };
 
   if (isLoading) return <Loader />;
 
@@ -28,44 +70,54 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
       <ProfileImage user={user} />
       <InputBox
         label="username"
-        value={user?.username || ""}
         placeholder="your unique handle"
+        {...register("username")}
       />
 
       <InputBox
         label="display name"
-        value={user?.name || ""}
         placeholder="your handle"
+        {...register("name")}
       />
 
       <InputBox
         label="what do you do?"
-        value={user?.bio || ""}
         placeholder="software engineer, etc"
+        {...register("bio")}
       />
 
       <InputBox
         label="location"
-        value={user?.location || ""}
         placeholder="where you're based"
+        {...register("location")}
       />
 
       <InputBox
         label="website"
-        value={user?.website || ""}
         placeholder="http://localhost:3000"
+        {...register("website")}
       />
 
       <CustomTextArea
         label="about"
         defaultValue={user?.about || ""}
         placeholder="something about you..."
+        {...register("about")}
       />
-    </div>
+
+      <Button
+        type="submit"
+        className="fixed right-8 bottom-2"
+        disabled={isSubmitting || !isDirty}
+      >
+        {isSubmitting ? <Loader /> : ""}
+        Done
+      </Button>
+    </form>
   );
 }
 
