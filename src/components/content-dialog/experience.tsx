@@ -10,6 +10,7 @@ import { Experience } from "@/types";
 import { Add } from "../add-more";
 import Content from "../content";
 import { Empty } from "../empty";
+import { Error } from "../error";
 import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
@@ -44,7 +45,9 @@ export const WorkContent = () => {
     }
   };
 
-  console.log("experience: ", works);
+  if (isLoading) return <Loader />;
+
+  if (error) return <Error label="experience" />;
 
   return (
     <div className="flex flex-col gap-3">
@@ -56,7 +59,6 @@ export const WorkContent = () => {
               placeholder="Netflix"
               {...register("organization")}
             />
-            {/* FIX: null */}
             <YearSelector
               label="from"
               onChange={(year) => {
@@ -71,11 +73,19 @@ export const WorkContent = () => {
             />
           </div>
 
-          <InputBox
-            label="link"
-            placeholder="www.netflix.com"
-            {...register("url")}
-          />
+          <div className="flex items-center gap-2">
+            <InputBox
+              label="link"
+              placeholder="www.netflix.com"
+              {...register("url")}
+            />
+
+            <InputBox
+              label="location"
+              placeholder="sf, etc"
+              {...register("location")}
+            />
+          </div>
           <InputBox label="role" placeholder="swe" {...register("role")} />
           <CustomTextArea
             label="description"

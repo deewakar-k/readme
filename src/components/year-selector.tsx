@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Label } from "@/components/ui/label";
 import {
@@ -30,6 +30,10 @@ export function YearSelector({
   showOngoing = false,
 }: YearSelectorProps) {
   const [value, setValue] = useState<string>(defaultValue);
+
+  useEffect(() => {
+    onChange?.(defaultValue);
+  }, []);
 
   const years = Array.from(
     { length: endYear - startYear + 1 },
