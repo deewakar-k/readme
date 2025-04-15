@@ -6,7 +6,7 @@ export const Empty = ({ label }: { label: string }) => {
   return (
     <div className="">
       <p
-        className={`${caveat.className} fixed right-16 bottom-32 -rotate-[40deg] text-center text-2xl`}
+        className={`${caveat.className} fixed right-20 bottom-28 -rotate-[10deg] text-center text-2xl`}
       >
         your {label} seems empty, <br /> add some!
       </p>

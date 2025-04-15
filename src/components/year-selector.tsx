@@ -1,7 +1,6 @@
-"use client";
-
 import { useState } from "react";
 
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -12,11 +11,13 @@ import {
 import { cn } from "@/lib/utils";
 
 interface YearSelectorProps {
-  onChange?: (value: { year: number | null; ongoing: boolean }) => void;
+  onChange?: (value: string) => void;
   className?: string;
   defaultValue?: string;
   startYear?: number;
   endYear?: number;
+  label?: string;
+  showOngoing?: boolean;
 }
 
 export function YearSelector({
@@ -25,10 +26,11 @@ export function YearSelector({
   defaultValue = new Date().getFullYear().toString(),
   startYear = 1975,
   endYear = new Date().getFullYear(),
+  label,
+  showOngoing = false,
 }: YearSelectorProps) {
   const [value, setValue] = useState<string>(defaultValue);
 
-  // Generate years array
   const years = Array.from(
     { length: endYear - startYear + 1 },
     (_, i) => endYear - i
@@ -36,22 +38,18 @@ export function YearSelector({
 
   const handleValueChange = (newValue: string) => {
     setValue(newValue);
-
-    if (newValue === "ongoing") {
-      onChange?.({ year: null, ongoing: true });
-    } else {
-      onChange?.({ year: Number.parseInt(newValue), ongoing: false });
-    }
+    onChange?.(newValue);
   };
 
   return (
-    <div className={cn("mt-4.5", className)}>
+    <div className={cn("space-y-2", className)}>
+      {label && <Label className="block">{label}</Label>}
       <Select value={value} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select year" />
         </SelectTrigger>
         <SelectContent className="max-h-[500px]">
-          <SelectItem value="ongoing">Ongoing</SelectItem>
+          {showOngoing && <SelectItem value="ongoing">Ongoing</SelectItem>}
           {years.map((year) => (
             <SelectItem key={year} value={year.toString()}>
               {year}

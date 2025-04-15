@@ -18,8 +18,9 @@ export const user = pgTable("user", {
 export const projects = pgTable("projects", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
+  description: text("description"),
   url: text("url"),
-  date: text("date").notNull(),
+  date: text("date"),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
@@ -31,9 +32,11 @@ export const work_experience = pgTable("work_experience", {
   id: text("id").primaryKey(),
   organization: text("organization").notNull(),
   role: text("role").notNull(),
+  description: text("description"),
   url: text("url"),
   location: text("location"),
-  date: text("date"),
+  from: text("from"),
+  to: text("to"),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),

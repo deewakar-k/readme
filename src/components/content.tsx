@@ -5,10 +5,14 @@ import { cn } from "@/lib/utils";
 import { ActionMenu } from "./action-menu";
 
 interface ContentProps {
-  header: string;
   title: string;
+  role?: string;
+  header?: string;
+  from?: string;
+  to?: string;
   url?: string;
   description?: string;
+  location?: string;
   className?: string;
   showAction: boolean;
 }
@@ -16,11 +20,17 @@ interface ContentProps {
 export default function Content({
   header,
   title,
+  role,
   url,
+  location,
   description,
+  from,
+  to,
   className,
   showAction = false,
 }: ContentProps) {
+  const displayText = role ? `${role} at ${title}` : title;
+
   return (
     <div
       className={cn(
@@ -28,9 +38,15 @@ export default function Content({
         className
       )}
     >
-      <div className="text-muted-foreground w-24 text-sm capitalize">
-        {header}
-      </div>
+      {from && to ? (
+        <div className="text-muted-foreground w-24 text-sm">
+          {from} - {to}
+        </div>
+      ) : (
+        <div className="text-muted-foreground w-24 text-sm capitalize">
+          {header}
+        </div>
+      )}
       <div className="flex-1">
         {url ? (
           <a
@@ -38,13 +54,18 @@ export default function Content({
             target="_blank"
             className="flex items-center gap-0.5 font-medium text-black hover:underline dark:text-white"
           >
-            {title}{" "}
+            {displayText}
             <span>
               <ArrowUpRightIcon className="size-4" strokeWidth={1.5} />
             </span>
           </a>
         ) : (
-          <h3 className="font-medium text-black dark:text-white">{title}</h3>
+          <h3 className="font-medium text-black dark:text-white">
+            {displayText}
+          </h3>
+        )}
+        {location && (
+          <p className="text-muted-foreground mt-1 text-sm">{location}</p>
         )}
         {description && (
           <p className="text-muted-foreground mt-1 text-sm">{description}</p>

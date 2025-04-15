@@ -13,3 +13,13 @@ export interface Contact {
   username: string;
   url: string;
 }
+
+export interface Experience {
+  organization: string;
+  role: string;
+  location: string;
+  description: string;
+  from: string;
+  to: string;
+  url: string;
+}
