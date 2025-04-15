@@ -23,3 +23,10 @@ export interface Experience {
   to: string;
   url: string;
 }
+
+export interface Project {
+  name: string;
+  description: string;
+  url: string;
+  date: string;
+}

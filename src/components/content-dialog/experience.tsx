@@ -117,6 +117,7 @@ export const WorkContent = () => {
                   role={work.role || ""}
                   location={work.location || ""}
                   description={work.description || ""}
+                  url={work.url || ""}
                   showAction={true}
                   key={idx}
                 />

@@ -68,7 +68,9 @@ export default function Content({
           <p className="text-muted-foreground mt-1 text-sm">{location}</p>
         )}
         {description && (
-          <p className="text-muted-foreground mt-1 text-sm">{description}</p>
+          <p className="text-muted-foreground mt-1 max-w-xs text-sm">
+            {description}
+          </p>
         )}
       </div>
       {showAction && (
