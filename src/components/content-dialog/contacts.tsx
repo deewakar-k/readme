@@ -12,6 +12,7 @@ import { Add } from "../add-more";
 import Content from "../content";
 import { Empty } from "../empty";
 import { Error } from "../error";
+import { GoBack } from "../go-back";
 import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { Button } from "../ui/button";
@@ -59,7 +60,7 @@ export const ContactsContent = () => {
   return (
     <div className="flex flex-col gap-3">
       {addMore ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
           <div className="flex items-center gap-4">
             <InputBox
               label="platform"
@@ -78,14 +79,14 @@ export const ContactsContent = () => {
             {...register("url")}
           />
 
-          <Button
-            type="submit"
-            className="fixed right-8 bottom-2"
-            disabled={isSubmitting || !isDirty}
-          >
-            {isSubmitting ? <Loader /> : ""}
-            Done
-          </Button>
+          <div className="fixed right-8 bottom-2 flex items-center gap-3">
+            <GoBack handleOnClick={() => setAddMore(false)} />
+
+            <Button type="submit" disabled={isSubmitting || !isDirty}>
+              {isSubmitting ? <Loader /> : ""}
+              Save
+            </Button>
+          </div>
         </form>
       ) : (
         <>

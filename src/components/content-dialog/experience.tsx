@@ -11,6 +11,7 @@ import { Add } from "../add-more";
 import Content from "../content";
 import { Empty } from "../empty";
 import { Error } from "../error";
+import { GoBack } from "../go-back";
 import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
@@ -94,14 +95,14 @@ export const WorkContent = () => {
             {...register("description")}
           />
 
-          <Button
-            type="submit"
-            className="fixed right-8 bottom-2"
-            disabled={isSubmitting || !isDirty}
-          >
-            {isSubmitting ? <Loader /> : ""}
-            Done
-          </Button>
+          <div className="fixed right-8 bottom-2 flex items-center gap-3">
+            <GoBack handleOnClick={() => setAdd(false)} />
+
+            <Button type="submit" disabled={isSubmitting || !isDirty}>
+              {isSubmitting ? <Loader /> : ""}
+              Save
+            </Button>
+          </div>
         </form>
       ) : (
         <>
