@@ -16,6 +16,7 @@ import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
 import { Button } from "../ui/button";
+import { ImageUpload } from "../upload";
 import { YearSelector } from "../year-selector";
 
 export const ProjectContent = () => {
@@ -72,9 +73,10 @@ export const ProjectContent = () => {
           <CustomTextArea
             label="description"
             placeholder="best project ever built using nextjs..."
-            className="min-h-48"
             {...register("description")}
           />
+
+          <ImageUpload />
 
           <div className="fixed right-8 bottom-2 flex items-center gap-3">
             <GoBack handleOnClick={() => setAdd(false)} />
