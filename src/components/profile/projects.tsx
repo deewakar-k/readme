@@ -1,23 +1,13 @@
 import { getProjects } from "@/actions/projects";
 
-import Content from "../content";
+import { AnimatedProjects } from "../animated/projects";
+import { Error } from "../error";
 
 export const Projects = async () => {
   const projects = await getProjects();
 
-  return (
-    <div className="mt-4 flex flex-col gap-3">
-      <h1>Projects</h1>
-      {projects?.map((project) => (
-        <Content
-          header={project.date || ""}
-          title={project.name}
-          url={project.url || ""}
-          description={project.description || ""}
-          showAction={false}
-          key={project.id}
-        />
-      ))}
-    </div>
-  );
+  if (!projects) {
+    return <Error label="projects" />;
+  }
+  return <AnimatedProjects projects={projects} />;
 };

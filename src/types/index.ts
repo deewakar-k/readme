@@ -1,11 +1,11 @@
 export interface User {
-  name: string;
-  image: string;
-  username: string;
-  bio: string;
-  about: string;
-  website: string;
-  location: string;
+  name: string | null;
+  image: string | null;
+  username: string | null;
+  bio: string | null;
+  about: string | null;
+  website: string | null;
+  location: string | null;
 }
 
 export interface Contact {
@@ -15,18 +15,18 @@ export interface Contact {
 }
 
 export interface Experience {
-  organization: string;
-  role: string;
-  location: string;
-  description: string;
-  from: string;
-  to: string;
-  url: string;
+  organization: string | null;
+  role: string | null;
+  location: string | null;
+  description: string | null;
+  from: string | null;
+  to: string | null;
+  url: string | null;
 }
 
 export interface Project {
-  name: string;
-  description: string;
-  url: string;
-  date: string;
+  name: string | null;
+  description: string | null;
+  url: string | null;
+  date: string | null;
 }

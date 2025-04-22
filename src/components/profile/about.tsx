@@ -1,11 +1,13 @@
 import { getUser } from "@/actions/user";
 
+import { AnimatedAbout } from "../animated/about";
+import { Error } from "../error";
+
 export const About = async () => {
   const user = await getUser();
-  return (
-    <div className="mt-4 flex flex-col gap-3">
-      <h1>About</h1>
-      <p className="text-muted-foreground text-sm">{user?.about}</p>
-    </div>
-  );
+
+  if (!user) {
+    return <Error label="user" />;
+  }
+  return <AnimatedAbout user={user} />;
 };
