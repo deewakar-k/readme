@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { createProject } from "@/actions/projects";
 import { useProjects } from "@/hooks/use-projects";
-import { Project } from "@/types";
+import { Project, ProjectFormData } from "@/types";
 
 import { Add } from "../add-more";
 import Content from "../content";
@@ -24,14 +24,46 @@ export const ProjectContent = () => {
   const { data: projects = [], isLoading, error, mutate } = useProjects();
   const {
     register,
+    control,
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty },
-  } = useForm<Project>();
+  } = useForm<ProjectFormData>();
 
-  const onSubmit = async (data: Project) => {
+  const uploadImages = async (files: File[]): Promise<string[]> => {
+    if (!files || files.length === 0) return [];
+
+    const uploadedUrls: string[] = [];
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/files", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const url = await response.json();
+        uploadedUrls.push(url);
+      } else {
+        toast.error("failed to upload image");
+      }
+    }
+
+    return uploadedUrls;
+  };
+
+  const onSubmit = async (data: ProjectFormData) => {
     try {
-      const newProject = await createProject(data);
+      const fileUrls = await uploadImages(data.attachments);
+
+      const projectData: Project = {
+        ...data,
+        attachments: JSON.stringify(fileUrls),
+      };
+      const newProject = await createProject(projectData);
 
       if (newProject) {
         mutate(
@@ -76,7 +108,13 @@ export const ProjectContent = () => {
             {...register("description")}
           />
 
-          <ImageUpload />
+          <Controller
+            name="attachments"
+            control={control}
+            render={({ field }) => (
+              <ImageUpload onChange={field.onChange} value={field.value} />
+            )}
+          />
 
           <div className="fixed right-8 bottom-2 flex items-center gap-3">
             <GoBack handleOnClick={() => setAdd(false)} />

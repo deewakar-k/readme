@@ -19,14 +19,27 @@ import {
 
 import { Label } from "./ui/label";
 
-export function ImageUpload() {
-  const [files, setFiles] = React.useState<File[]>([]);
+interface ImageUploadProps {
+  onChange: (files: File[]) => void;
+  value?: File[];
+}
+
+export function ImageUpload({ onChange, value = [] }: ImageUploadProps) {
+  const [files, setFiles] = React.useState<File[]>(value);
 
   const onFileReject = React.useCallback((file: File, message: string) => {
     toast(message, {
       description: `"${file.name.length > 20 ? `${file.name.slice(0, 20)}...` : file.name}" has been rejected`,
     });
   }, []);
+
+  const handleFilesChange = React.useCallback(
+    (newFiles: File[]) => {
+      setFiles(newFiles);
+      onChange(newFiles);
+    },
+    [onChange]
+  );
 
   return (
     <>
@@ -36,7 +49,7 @@ export function ImageUpload() {
         maxSize={5 * 1024 * 1024}
         className="w-full max-w-md"
         value={files}
-        onValueChange={setFiles}
+        onValueChange={handleFilesChange}
         onFileReject={onFileReject}
         multiple
       >

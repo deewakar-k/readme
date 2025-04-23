@@ -29,4 +29,13 @@ export interface Project {
   description: string | null;
   url: string | null;
   date: string | null;
+  attachments: string;
+}
+
+export interface ProjectFormData {
+  name: string | null;
+  description: string | null;
+  url: string | null;
+  date: string | null;
+  attachments: File[];
 }

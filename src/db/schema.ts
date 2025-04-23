@@ -21,6 +21,7 @@ export const projects = pgTable("projects", {
   description: text("description"),
   url: text("url"),
   date: text("date"),
+  attachments: text("attachments"),
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),

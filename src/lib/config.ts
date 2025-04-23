@@ -1,6 +1,5 @@
-"server only";
-
 import { PinataSDK } from "pinata";
+import "server-only";
 
 import { env } from "@/env/server";
 
