@@ -25,17 +25,18 @@ export interface Experience {
 }
 
 export interface Project {
+  id?: string;
   name: string;
-  description: string;
-  url: string;
-  date: string;
-  attachments: string;
+  date?: string | null;
+  url?: string | null;
+  description?: string | null;
+  attachments?: string | null;
 }
 
 export interface ProjectFormData {
   name: string;
-  description: string;
-  url: string;
-  date: string;
+  description?: string;
+  url?: string;
+  date?: string | null;
   attachments: File[];
 }

@@ -1,10 +1,17 @@
+"use client";
+
+import React, { useRef, useState } from "react";
+
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRightIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Project } from "@/types";
 
 import { ActionMenu } from "./action-menu";
 
 interface ContentProps {
+  id: string;
   title: string;
   role?: string;
   header?: string;
@@ -13,11 +20,15 @@ interface ContentProps {
   url?: string;
   description?: string;
   location?: string;
+  images?: string[];
   className?: string;
   showAction: boolean;
+  onEditClick: () => void;
+  onDeleteClick: () => void;
 }
 
 export default function Content({
+  id,
   header,
   title,
   role,
@@ -28,7 +39,31 @@ export default function Content({
   to,
   className,
   showAction = false,
+  onEditClick,
+  onDeleteClick,
 }: ContentProps) {
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  //for smooth cursor flow
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // spring physics for smooth following
+  const springX = useSpring(mouseX, { damping: 25, stiffness: 300 });
+  const springY = useSpring(mouseY, { damping: 25, stiffness: 300 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (!containerRect) return;
+
+    const x = e.clientX - containerRect.left;
+    const y = e.clientY - containerRect.top;
+
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
   const displayText = role ? `${role} at ${title}` : title;
 
   return (
@@ -47,12 +82,14 @@ export default function Content({
           {header}
         </div>
       )}
-      <div className="flex-1">
+      <div ref={containerRef} onMouseMove={handleMouseMove} className="flex-1">
         {url ? (
           <a
             href={url.startsWith("http") ? url : `https://${url}`}
             target="_blank"
             className="flex items-center gap-0.5 font-medium text-black hover:underline dark:text-white"
+            onMouseEnter={() => setActiveItem()}
+            onMouseLeave={() => setActiveItem(null)}
           >
             {displayText}
             <span>
@@ -75,7 +112,7 @@ export default function Content({
       </div>
       {showAction && (
         <div className="opacity-0 transition-opacity group-hover:opacity-100">
-          <ActionMenu />
+          <ActionMenu onEditClick={onEditClick} onDeleteClick={onDeleteClick} />
         </div>
       )}
     </div>

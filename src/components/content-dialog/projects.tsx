@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { createProject } from "@/actions/projects";
+import {
+  createProject,
+  deleteProject,
+  updateProject,
+} from "@/actions/projects";
 import { useProjects } from "@/hooks/use-projects";
 import { Project, ProjectFormData } from "@/types";
 
@@ -20,15 +24,56 @@ import { ImageUpload } from "../upload";
 import { YearSelector } from "../year-selector";
 
 export const ProjectContent = () => {
-  const [add, setAdd] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [editingContent, setEditingContent] = useState<ProjectFormData | null>(
+    null
+  );
+
   const { data: projects = [], isLoading, error, mutate } = useProjects();
   const {
     register,
     control,
     handleSubmit,
     setValue,
+    reset,
     formState: { isSubmitting, isDirty },
   } = useForm<ProjectFormData>();
+
+  const handleAddClick = () => {
+    setEditingContent(null);
+    reset();
+    setIsFormVisible(true);
+  };
+
+  const handleEdit = (project: ProjectFormData) => {
+    console.log("handle edit: ", project);
+    setEditingContent(project);
+    reset(project);
+    setIsFormVisible(true);
+  };
+
+  const handleDelete = async (project: Project) => {
+    try {
+      if (!project.id) return;
+
+      await deleteProject(project.id);
+      toast.success("Project deleted successfully");
+      mutate(
+        (currentProjects) =>
+          (currentProjects || []).filter((p) => p.id !== project.id),
+        { revalidate: false }
+      );
+    } catch (err) {
+      console.error("Error deleting project:", err);
+      toast.error("Failed to delete project");
+    }
+  };
+
+  const handleCancel = () => {
+    setIsFormVisible(false);
+    setEditingContent(null);
+    reset();
+  };
 
   const uploadImages = async (files: File[]): Promise<string[]> => {
     if (!files || files.length === 0) return [];
@@ -63,17 +108,33 @@ export const ProjectContent = () => {
         ...data,
         attachments: JSON.stringify(fileUrls),
       };
-      const newProject = await createProject(projectData);
 
-      if (newProject) {
+      if (editingContent && editingContent.id) {
+        const updatedProject = await updateProject(
+          projectData,
+          editingContent.id
+        );
+        toast.success("Project updated successfully");
         mutate(
-          async (currentProject) => {
-            return [...(currentProject || []), newProject];
-          },
+          (currentProjects) =>
+            (currentProjects || []).map((p) =>
+              p.id === editingContent.id ? { ...p, ...updatedProject } : p
+            ),
           { revalidate: false }
         );
+      } else {
+        const newProject = await createProject(projectData);
+
+        if (newProject) {
+          mutate(
+            async (currentProject) => {
+              return [...(currentProject || []), newProject];
+            },
+            { revalidate: false }
+          );
+        }
       }
-      setAdd(false);
+      handleCancel();
     } catch (error) {
       console.error("error creating project: ", error);
       toast.error("error creating project");
@@ -85,7 +146,7 @@ export const ProjectContent = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      {add ? (
+      {isFormVisible ? (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
           <div className="flex items-center gap-2">
             <InputBox label="name" placeholder="readme" {...register("name")} />
@@ -117,7 +178,7 @@ export const ProjectContent = () => {
           />
 
           <div className="fixed right-8 bottom-2 flex items-center gap-3">
-            <GoBack handleOnClick={() => setAdd(false)} />
+            <GoBack handleOnClick={handleCancel} />
 
             <Button type="submit" disabled={isSubmitting || !isDirty}>
               {isSubmitting ? <Loader /> : ""}
@@ -133,12 +194,15 @@ export const ProjectContent = () => {
             <>
               {projects.map((project, idx) => (
                 <Content
+                  id={project.id}
+                  key={project.id}
                   header={project.date || ""}
                   title={project.name}
                   url={project.url || ""}
                   description={project.description || ""}
                   showAction={true}
-                  key={idx}
+                  onEditClick={() => handleEdit(project)}
+                  onDeleteClick={() => handleDelete(project)}
                 />
               ))}
             </>
@@ -146,7 +210,7 @@ export const ProjectContent = () => {
         </>
       )}
       <div className="fixed right-4 bottom-4">
-        {add ? "" : <Add handleOnClick={() => setAdd(true)} />}
+        {!isFormVisible && <Add handleOnClick={handleAddClick} />}
       </div>
     </div>
   );

@@ -8,7 +8,12 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-export const ActionMenu = () => {
+interface ActionMenuProps {
+  onEditClick: () => void;
+  onDeleteClick: () => void;
+}
+
+export const ActionMenu = ({ onEditClick, onDeleteClick }: ActionMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,11 +26,11 @@ export const ActionMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={onEditClick}>
           {" "}
           <Pencil /> <span>edit</span>{" "}
         </DropdownMenuItem>
-        <DropdownMenuItem className="text-red-400">
+        <DropdownMenuItem className="text-red-400" onClick={onDeleteClick}>
           {" "}
           <Trash2 className="text-red-400" /> <span>remove</span>{" "}
         </DropdownMenuItem>
