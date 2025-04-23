@@ -15,20 +15,20 @@ export interface Contact {
 }
 
 export interface Experience {
-  organization: string | null;
-  role: string | null;
-  location: string | null;
-  description: string | null;
-  from: string | null;
-  to: string | null;
-  url: string | null;
+  organization: string;
+  role: string;
+  location: string;
+  description: string;
+  from: string;
+  to: string;
+  url: string;
 }
 
 export interface Project {
-  name: string | null;
-  description: string | null;
-  url: string | null;
-  date: string | null;
+  name: string;
+  description: string;
+  url: string;
+  date: string;
   attachments: string;
 }
 
