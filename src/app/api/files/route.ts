@@ -8,7 +8,10 @@ export async function POST(request: NextRequest) {
     const file: File | null = data.get("file") as unknown as File;
     const { cid } = await pinata.upload.public.file(file);
     const url = await pinata.gateways.public.convert(cid);
-    return NextResponse.json(url, { status: 200 });
+
+    const optimizedUrl = `${url}/ipfs/${cid}?img-width=240&img-format=webp`;
+
+    return NextResponse.json(optimizedUrl, { status: 200 });
   } catch (e) {
     console.log(e);
     return NextResponse.json(

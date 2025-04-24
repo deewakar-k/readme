@@ -53,6 +53,8 @@ export const AnimatedProjects = ({ projects }: { projects: Project[] }) => {
     controls.start("visible");
   }, [controls]);
 
+  console.log("projects: ", projects);
+
   return (
     <motion.div
       initial="hidden"
@@ -63,10 +65,14 @@ export const AnimatedProjects = ({ projects }: { projects: Project[] }) => {
       <motion.h1 variants={itemVariants}>Projects</motion.h1>
       {projects?.map((project, idx) => (
         <Content
+          id={project.id || ""}
           header={project.date || ""}
           title={project.name || ""}
           url={project.url || ""}
           description={project.description || ""}
+          attachments={
+            project.attachments ? JSON.parse(project.attachments) : []
+          }
           showAction={false}
           key={idx}
         />

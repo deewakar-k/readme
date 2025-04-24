@@ -34,9 +34,11 @@ export interface Project {
 }
 
 export interface ProjectFormData {
+  id: string;
   name: string;
   description?: string;
   url?: string;
   date?: string | null;
   attachments: File[];
+  existingAttachmentsUrls?: string[];
 }

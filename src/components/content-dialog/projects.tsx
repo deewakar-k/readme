@@ -22,6 +22,7 @@ import { CustomTextArea } from "../text-area";
 import { Button } from "../ui/button";
 import { ImageUpload } from "../upload";
 import { YearSelector } from "../year-selector";
+import { ProjectAttachmentField } from "./project-attachment";
 
 export const ProjectContent = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -36,8 +37,11 @@ export const ProjectContent = () => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { isSubmitting, isDirty },
   } = useForm<ProjectFormData>();
+
+  const { existingAttachmentsUrls = [] } = watch();
 
   const handleAddClick = () => {
     setEditingContent(null);
@@ -45,14 +49,27 @@ export const ProjectContent = () => {
     setIsFormVisible(true);
   };
 
-  const handleEdit = (project: ProjectFormData) => {
-    console.log("handle edit: ", project);
-    setEditingContent(project);
-    reset(project);
+  const handleEdit = (project: Project) => {
+    const existingUrls = project.attachments
+      ? JSON.parse(project.attachments)
+      : [];
+
+    const formData = {
+      id: project.id || "",
+      name: project.name,
+      description: project.description || "",
+      url: project.url || "",
+      date: project.date || null,
+      attachments: [], // Start with no new files
+      existingAttachmentUrls: existingUrls, // Store the URLs
+    };
+
+    setEditingContent(formData);
+    reset(formData);
     setIsFormVisible(true);
   };
 
-  const handleDelete = async (project: Project) => {
+  const handleDelete = async (project: ProjectFormData) => {
     try {
       if (!project.id) return;
 
@@ -100,13 +117,27 @@ export const ProjectContent = () => {
     return uploadedUrls;
   };
 
+  const handleRemoveUrl = (urlToRemove) => {
+    setValue(
+      "existingAttachmentsUrls",
+      existingAttachmentsUrls.filter((url) => url !== urlToRemove)
+    );
+  };
+
   const onSubmit = async (data: ProjectFormData) => {
     try {
-      const fileUrls = await uploadImages(data.attachments);
+      const newFileUrls =
+        data.attachments.length > 0 ? await uploadImages(data.attachments) : [];
+
+      const allAttachments = [
+        ...(data.existingAttachmentsUrls || []),
+        ...newFileUrls,
+      ];
 
       const projectData: Project = {
         ...data,
-        attachments: JSON.stringify(fileUrls),
+        attachments:
+          allAttachments.length > 0 ? JSON.stringify(allAttachments) : null,
       };
 
       if (editingContent && editingContent.id) {
@@ -169,12 +200,10 @@ export const ProjectContent = () => {
             {...register("description")}
           />
 
-          <Controller
-            name="attachments"
+          <ProjectAttachmentField
             control={control}
-            render={({ field }) => (
-              <ImageUpload onChange={field.onChange} value={field.value} />
-            )}
+            existingUrls={existingAttachmentsUrls}
+            onRemoveUrl={handleRemoveUrl}
           />
 
           <div className="fixed right-8 bottom-2 flex items-center gap-3">

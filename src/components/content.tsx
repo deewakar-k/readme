@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
@@ -20,7 +21,7 @@ interface ContentProps {
   url?: string;
   description?: string;
   location?: string;
-  images?: string[];
+  attachments?: string[];
   className?: string;
   showAction: boolean;
   onEditClick: () => void;
@@ -35,6 +36,7 @@ export default function Content({
   url,
   location,
   description,
+  attachments,
   from,
   to,
   className,
@@ -42,7 +44,7 @@ export default function Content({
   onEditClick,
   onDeleteClick,
 }: ContentProps) {
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   //for smooth cursor flow
@@ -82,14 +84,18 @@ export default function Content({
           {header}
         </div>
       )}
-      <div ref={containerRef} onMouseMove={handleMouseMove} className="flex-1">
+      <div
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        className="flex-1"
+        onMouseEnter={() => setActiveIndex(0)}
+        onMouseLeave={() => setActiveIndex(null)}
+      >
         {url ? (
           <a
             href={url.startsWith("http") ? url : `https://${url}`}
             target="_blank"
             className="flex items-center gap-0.5 font-medium text-black hover:underline dark:text-white"
-            onMouseEnter={() => setActiveItem()}
-            onMouseLeave={() => setActiveItem(null)}
           >
             {displayText}
             <span>
@@ -100,6 +106,59 @@ export default function Content({
           <h3 className="font-medium text-black dark:text-white">
             {displayText}
           </h3>
+        )}
+        {activeIndex !== null && attachments?.length > 0 && (
+          <motion.div
+            className="pointer-events-none absolute"
+            style={{
+              x: springX,
+              y: springY,
+              translateX: "10%",
+              translateY: "-50%",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="relative flex items-center">
+              {attachments!.slice(0, 2).map((src, imgIdx) => (
+                <motion.div
+                  key={imgIdx}
+                  className={`overflow-hidden rounded-lg bg-white shadow-xl ${
+                    imgIdx === 1 ? "absolute top-0 -right-10 z-10" : ""
+                  }`}
+                  initial={{
+                    opacity: 0,
+                    x: imgIdx * 20,
+                    y: imgIdx * 10,
+                    rotate: imgIdx === 0 ? -2 : 2,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: imgIdx * 20,
+                    y: imgIdx * 10,
+                    rotate: imgIdx === 0 ? -2 : 2,
+                  }}
+                  transition={{
+                    delay: imgIdx * 0.1,
+                    duration: 0.3,
+                  }}
+                >
+                  <Image
+                    loader={({ src, width }) => {
+                      return src;
+                    }}
+                    src={src || "/placeholder.svg"}
+                    alt={"attachment"}
+                    width={240}
+                    height={160}
+                    className="object-cover"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
         {location && (
           <p className="text-muted-foreground mt-1 text-sm">{location}</p>
