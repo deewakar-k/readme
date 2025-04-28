@@ -8,7 +8,7 @@ import { ImageUpload } from "../upload";
 
 export const ProjectAttachmentField = ({
   control,
-  existingUrls = [],
+  existingUrls,
   onRemoveUrl,
 }) => {
   return (

@@ -7,7 +7,6 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRightIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Project } from "@/types";
 
 import { ActionMenu } from "./action-menu";
 
@@ -29,7 +28,6 @@ interface ContentProps {
 }
 
 export default function Content({
-  id,
   header,
   title,
   role,
@@ -146,7 +144,7 @@ export default function Content({
                   }}
                 >
                   <Image
-                    loader={({ src, width }) => {
+                    loader={({ src }) => {
                       return src;
                     }}
                     src={src || "/placeholder.svg"}

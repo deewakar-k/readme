@@ -331,14 +331,7 @@ const FileUploadRoot = React.forwardRef<HTMLDivElement, FileUploadRootProps>(
       value,
       defaultValue,
       onValueChange,
-      onAccept,
-      onFileAccept,
-      onFileReject,
-      onFileValidate,
-      onUpload,
       accept,
-      maxFiles,
-      maxSize,
       dir: dirProp,
       label,
       name,
@@ -647,7 +640,7 @@ const FileUploadDropzone = React.forwardRef<
 
       const isFromTrigger =
         target instanceof HTMLElement &&
-        target.closest('[data-slot="file-upload-trigger"]');
+        target.closest("[data-slot='file-upload-trigger']");
 
       if (!isFromTrigger) {
         context.inputRef.current?.click();
@@ -822,8 +815,8 @@ const FileUploadList = React.forwardRef<HTMLDivElement, FileUploadListProps>(
 
     const context = useFileUploadContext(LIST_NAME);
 
-    const shouldRender =
-      forceMount || useStore((state) => state.files.size > 0);
+    const hasFiles = useStore((state) => state.files.size > 0);
+    const shouldRender = forceMount || hasFiles;
 
     if (!shouldRender) return null;
 

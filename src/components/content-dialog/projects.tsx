@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import {
@@ -20,7 +20,6 @@ import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
 import { Button } from "../ui/button";
-import { ImageUpload } from "../upload";
 import { YearSelector } from "../year-selector";
 import { ProjectAttachmentField } from "./project-attachment";
 
@@ -69,7 +68,7 @@ export const ProjectContent = () => {
     setIsFormVisible(true);
   };
 
-  const handleDelete = async (project: ProjectFormData) => {
+  const handleDelete = async (project: Project) => {
     try {
       if (!project.id) return;
 
@@ -221,7 +220,7 @@ export const ProjectContent = () => {
             <Empty label="projects" />
           ) : (
             <>
-              {projects.map((project, idx) => (
+              {projects.map((project) => (
                 <Content
                   id={project.id}
                   key={project.id}

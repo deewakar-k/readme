@@ -46,6 +46,31 @@ export default function Profile() {
       : undefined,
   });
 
+  const uploadImages = async (files: File[]): Promise<string[]> => {
+    if (!files || files.length === 0) return [];
+
+    const uploadedUrls: string[] = [];
+
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/files", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const url = await response.json();
+        uploadedUrls.push(url);
+      } else {
+        toast.error("failed to upload image");
+      }
+    }
+
+    return uploadedUrls;
+  };
+
   const onSubmit = async (data: ProfileFormInput) => {
     try {
       const updatedUser = await updateUser(data);
