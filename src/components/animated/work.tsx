@@ -53,26 +53,30 @@ export const AnimatedWork = ({ works }: { works: Experience[] }) => {
   }, [controls]);
 
   return (
-    <motion.div
-      initial="hidden"
-      animate={controls}
-      variants={containerVariants}
-      className="mt-4 flex flex-col gap-3"
-    >
-      <motion.h1 variants={itemVariants}>Work Experience</motion.h1>
-      {works?.map((work: Experience, idx) => (
-        <Content
-          role={work.role || ""}
-          title={work.organization || ""}
-          from={work.from || ""}
-          to={work.to || ""}
-          location={work.location || ""}
-          description={work.description || ""}
-          url={work.url || ""}
-          showAction={false}
-          key={idx}
-        />
-      ))}
-    </motion.div>
+    <>
+      {works.length !== 0 && (
+        <motion.div
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className="mt-4 flex flex-col gap-3"
+        >
+          <motion.h1 variants={itemVariants}>Work Experience</motion.h1>
+          {works?.map((work: Experience, idx) => (
+            <Content
+              role={work.role || ""}
+              title={work.organization || ""}
+              from={work.from || ""}
+              to={work.to || ""}
+              location={work.location || ""}
+              description={work.description || ""}
+              url={work.url || ""}
+              showAction={false}
+              key={idx}
+            />
+          ))}
+        </motion.div>
+      )}
+    </>
   );
 };

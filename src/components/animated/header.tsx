@@ -87,7 +87,7 @@ export const AnimatedHeader = ({ user }: { user: User }) => {
             variants={itemVariants}
             className="text-muted-foreground text-sm"
           >
-            {user?.bio ?? "No bio provided."}
+            {user?.bio ?? ""}
           </motion.p>
         </div>
       </div>

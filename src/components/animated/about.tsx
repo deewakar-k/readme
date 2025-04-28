@@ -52,19 +52,23 @@ export const AnimatedAbout = ({ user }: { user: User }) => {
   }, [controls]);
 
   return (
-    <motion.div
-      initial="hidden"
-      animate={controls}
-      variants={containerVariants}
-      className="mt-4 flex flex-col gap-3"
-    >
-      <motion.h1 variants={itemVariants}>About</motion.h1>
-      <motion.p
-        variants={itemVariants}
-        className="text-muted-foreground text-sm"
-      >
-        {user?.about}
-      </motion.p>
-    </motion.div>
+    <>
+      {user?.about && (
+        <motion.div
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className="mt-4 flex flex-col gap-3"
+        >
+          <motion.h1 variants={itemVariants}>About</motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="text-muted-foreground text-sm"
+          >
+            {user?.about}
+          </motion.p>
+        </motion.div>
+      )}
+    </>
   );
 };

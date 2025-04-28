@@ -54,25 +54,29 @@ export const AnimatedContact = ({ contacts }: { contacts: Contact[] }) => {
   }, [controls]);
 
   return (
-    <motion.div
-      initial="hidden"
-      animate={controls}
-      variants={containerVariants}
-      className="mt-4 flex flex-col gap-3"
-    >
-      <motion.h1 variants={itemVariants} className="mb-2">
-        Contacts
-      </motion.h1>
-      {contacts?.map((contact: Contact) => (
-        <Content
-          header={contact.platform}
-          title={contact.username}
-          url={contact.url}
-          showAction={false}
-          key={contact.platform}
-          className="py-0"
-        />
-      ))}
-    </motion.div>
+    <>
+      {contacts.length !== 0 && (
+        <motion.div
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className="mt-4 flex flex-col gap-3"
+        >
+          <motion.h1 variants={itemVariants} className="mb-2">
+            Contacts
+          </motion.h1>
+          {contacts.map((contact: Contact) => (
+            <Content
+              header={contact.platform}
+              title={contact.username}
+              url={contact.url}
+              showAction={false}
+              key={contact.platform}
+              className="py-0"
+            />
+          ))}
+        </motion.div>
+      )}
+    </>
   );
 };
