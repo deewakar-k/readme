@@ -18,20 +18,22 @@ export default async function Page() {
 
   try {
     const userId = session.user.id;
-    const username = session.user.email.split("@")[0];
+    const fallbackUsername = session.user.email.split("@")[0];
 
     const existingUser = await db.query.user.findFirst({
       where: (user, { eq }) => eq(user.id, userId),
     });
 
+    const finalUsername = existingUser?.username ?? fallbackUsername;
+
     if (!existingUser?.username) {
       await db
         .update(user)
-        .set({ username: username })
+        .set({ username: fallbackUsername })
         .where(eq(user.id, userId));
     }
 
-    return redirect(`/readme/${username}`);
+    return redirect(`/readme/${finalUsername}`);
   } catch (error) {
     if (error instanceof Error && error.message === "NEXT_REDIRECT") {
       throw error;
