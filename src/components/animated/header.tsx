@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 import { type Variants, motion, useAnimation } from "framer-motion";
+import { Globe } from "lucide-react";
 
 import { User } from "@/types";
 
@@ -82,7 +83,7 @@ export const AnimatedHeader = ({ user }: { user: User }) => {
             )}
           </Avatar>
         </motion.div>
-        <div>
+        <div className="flex flex-col">
           <motion.h1 variants={itemVariants} className="text-xl">
             {user?.name ?? "User"}
           </motion.h1>
@@ -92,6 +93,21 @@ export const AnimatedHeader = ({ user }: { user: User }) => {
           >
             {user?.bio ?? ""}
           </motion.p>
+          {/*   {user.website && (
+            <motion.a
+              href={
+                user.website.startsWith("http")
+                  ? user.website
+                  : `https://${user.website}`
+              }
+              target="_blank"
+              className="cursor-pointer"
+            >
+              <span>
+                <Globe className="text-muted-foreground size-4" />
+              </span>
+            </motion.a>
+          )} */}
         </div>
       </div>
     </motion.div>
