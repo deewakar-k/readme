@@ -65,12 +65,15 @@ export const AnimatedHeader = ({ user }: { user: User }) => {
           <Avatar className="h-[92px] w-[92px]">
             {user.image ? (
               <Image
+                loader={({ src }) => {
+                  return src;
+                }}
                 src={user.image}
                 alt={user.name ?? "User Avatar"}
                 width={92}
                 height={92}
                 priority
-                className="rounded-full"
+                className="rounded-full object-cover"
               />
             ) : (
               <AvatarFallback className="text-3xl">

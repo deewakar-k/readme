@@ -1,11 +1,11 @@
 export interface User {
-  name: string | null;
-  image: string | null;
-  username: string | null;
-  bio: string | null;
-  about: string | null;
-  website: string | null;
-  location: string | null;
+  name: string;
+  image: string;
+  username: string;
+  bio: string;
+  about: string;
+  website: string;
+  location: string;
 }
 
 export interface Contact {
