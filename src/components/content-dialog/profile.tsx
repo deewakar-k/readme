@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import { UserIcon } from "lucide-react";
@@ -10,7 +11,6 @@ import { mutate } from "swr";
 
 import { updateUser } from "@/actions/user";
 import { useUser } from "@/hooks/use-user";
-import { type User } from "@/types";
 import { uploadImage } from "@/utils/upload";
 
 import { Error } from "../error";
@@ -31,6 +31,7 @@ interface ProfileFormInput {
 }
 
 export default function Profile() {
+  const router = useRouter();
   const { data: user, isLoading, error } = useUser();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const {
@@ -62,6 +63,7 @@ export default function Profile() {
 
   const onSubmit = async (data: ProfileFormInput) => {
     try {
+      const oldUsername = user?.username;
       let imageUrl = user?.image || "";
 
       if (selectedImage) {
@@ -86,6 +88,10 @@ export default function Profile() {
       if (updatedUser) {
         mutate(updatedUser, { revalidate: false });
         toast.success("profile updated!");
+
+        if (oldUsername !== data.username) {
+          router.push(`/readme/${data.username}`);
+        }
       }
     } catch (error) {
       console.error("failed to update user profile: ", error);

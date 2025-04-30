@@ -34,13 +34,15 @@ export default async function Page({
 
   const isOwner = session && session.user.id === userExist.id;
 
+  const userId = userExist.id;
+
   return (
     <div className="mx-auto mt-8 flex max-w-lg flex-col items-start justify-start gap-4">
-      <Header />
-      <About />
-      <Projects />
-      <WorkExperience />
-      <Contacts />
+      <Header userId={userId} />
+      <About userId={userId} />
+      <Projects userId={userId} />
+      <WorkExperience userId={userId} />
+      <Contacts userId={userId} />
       {isOwner && (
         <div className="fixed right-4 bottom-3">
           <ContentDialog />

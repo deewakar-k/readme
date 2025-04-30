@@ -9,17 +9,8 @@ import { user } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { User } from "@/types";
 
-export const getUser = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new Error("not authenticated");
-  }
-
+export const getUser = async (userId: string) => {
   try {
-    const userId = session.user.id;
     const userProfile = await db.query.user.findFirst({
       where: eq(user?.id, userId),
     });

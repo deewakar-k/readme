@@ -9,17 +9,8 @@ import { contacts } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { Contact } from "@/types";
 
-export async function getContacts() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new Error("unauthorized");
-  }
-
+export async function getContacts(userId: string) {
   try {
-    const userId = session.user.id;
     const result = await db
       .select()
       .from(contacts)

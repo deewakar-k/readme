@@ -9,17 +9,8 @@ import { projects } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { Project } from "@/types";
 
-export async function getProjects() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    throw new Error("unauthorized");
-  }
-
+export async function getProjects(userId: string) {
   try {
-    const userId = session.user.id;
     const result = await db
       .select()
       .from(projects)
