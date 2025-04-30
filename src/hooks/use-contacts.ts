@@ -6,24 +6,26 @@ import { useSession } from "@/lib/auth-client";
 
 export const useContacts = () => {
   const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const {
     data: contacts,
     error,
     isLoading,
     mutate,
-  } = useSWR(
-    session?.session ? `contact-${session.user.id}` : null,
-    async () => {
-      try {
-        const result = await getContacts();
-        return result;
-      } catch (error) {
-        console.error("error fetching contacts: ", error);
-        toast.error("failed to load contacts");
-        throw error;
-      }
+  } = useSWR(userId ? `contact-${userId}` : null, async (id) => {
+    if (!id) {
+      return null;
     }
-  );
+    try {
+      const result = await getContacts(id);
+      return result;
+    } catch (error) {
+      console.error("error fetching contacts: ", error);
+      toast.error("failed to load contacts");
+      throw error;
+    }
+  });
 
   return {
     data: contacts,

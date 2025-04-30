@@ -63,9 +63,8 @@ export const AnimatedProjects = ({ projects }: { projects: Project[] }) => {
           className="mt-4 flex flex-col gap-3"
         >
           <motion.h1 variants={itemVariants}>Projects</motion.h1>
-          {projects.map((project, idx) => (
+          {projects.map((project) => (
             <Content
-              id={project.id || ""}
               header={project.date || ""}
               title={project.name || ""}
               url={project.url || ""}
@@ -74,7 +73,7 @@ export const AnimatedProjects = ({ projects }: { projects: Project[] }) => {
                 project.attachments ? JSON.parse(project.attachments) : []
               }
               showAction={false}
-              key={idx}
+              key={project.id}
             />
           ))}
         </motion.div>

@@ -65,7 +65,7 @@ export const AnimatedContact = ({ contacts }: { contacts: Contact[] }) => {
           <motion.h1 variants={itemVariants} className="mb-2">
             Contacts
           </motion.h1>
-          {contacts.map((contact: Contact) => (
+          {contacts.map((contact) => (
             <Content
               header={contact.platform}
               title={contact.username}

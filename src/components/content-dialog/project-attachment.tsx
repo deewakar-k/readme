@@ -1,12 +1,19 @@
 import Image from "next/image";
+import { FC } from "react";
 
 import { X } from "lucide-react";
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 import { Button } from "../ui/button";
 import { ImageUpload } from "../upload";
 
-export const ProjectAttachmentField = ({
+interface ProjectAttachmentFieldProps {
+  control: Control<any>;
+  existingUrls: string[];
+  onRemoveUrl: (url: string) => void;
+}
+
+export const ProjectAttachmentField: FC<ProjectAttachmentFieldProps> = ({
   control,
   existingUrls,
   onRemoveUrl,

@@ -16,7 +16,7 @@ import { InputBox } from "../input-box";
 import { Loader } from "../loader";
 import { CustomTextArea } from "../text-area";
 import { Button } from "../ui/button";
-import { ImageUpload } from "../upload";
+//import { ImageUpload } from "../upload";
 import { YearSelector } from "../year-selector";
 
 export const WorkContent = () => {
@@ -94,7 +94,6 @@ export const WorkContent = () => {
             placeholder="worked on security..."
             {...register("description")}
           />
-          <ImageUpload />
 
           <div className="fixed right-8 bottom-2 flex items-center gap-3">
             <GoBack handleOnClick={() => setAdd(false)} />
@@ -107,11 +106,11 @@ export const WorkContent = () => {
         </form>
       ) : (
         <>
-          {works.length === 0 ? (
+          {works?.length === 0 ? (
             <Empty label="experience" />
           ) : (
             <>
-              {works.map((work, idx) => (
+              {works?.map((work, idx) => (
                 <Content
                   from={work.from || ""}
                   to={work.to || ""}

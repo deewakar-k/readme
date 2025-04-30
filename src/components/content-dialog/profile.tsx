@@ -158,6 +158,7 @@ export default function Profile() {
   );
 }
 
+ 
 interface ProfileImageProps {
   user: any;
   onImageChange: (file: File | null) => void;
@@ -165,14 +166,12 @@ interface ProfileImageProps {
 
 const ProfileImage = ({ user, onImageChange }: ProfileImageProps) => {
   const [image, setImage] = useState<string | null>(user?.image || null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (file) {
-      setSelectedFile(file);
       onImageChange(file);
 
       const reader = new FileReader();
@@ -186,7 +185,6 @@ const ProfileImage = ({ user, onImageChange }: ProfileImageProps) => {
 
   const handleRemoveImage = () => {
     setImage(null);
-    setSelectedFile(null);
     onImageChange(null);
 
     if (fileInputRef.current) {

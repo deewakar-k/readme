@@ -34,6 +34,7 @@ const eslintConfig = [
           "src/**/!^[.*": "KEBAB_CASE",
         },
       ],
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];

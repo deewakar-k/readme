@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { ActionMenu } from "./action-menu";
 
 interface ContentProps {
-  id: string;
   title: string;
   role?: string;
   header?: string;
@@ -22,9 +21,9 @@ interface ContentProps {
   location?: string;
   attachments?: string[];
   className?: string;
-  showAction: boolean;
-  onEditClick: () => void;
-  onDeleteClick: () => void;
+  showAction?: boolean;
+  onEditClick?: () => void;
+  onDeleteClick?: () => void;
 }
 
 export default function Content({
@@ -105,7 +104,7 @@ export default function Content({
             {displayText}
           </h3>
         )}
-        {activeIndex !== null && attachments?.length > 0 && (
+        {activeIndex !== null && attachments && attachments?.length > 0 && (
           <motion.div
             className="pointer-events-none absolute"
             style={{
@@ -120,41 +119,33 @@ export default function Content({
             transition={{ duration: 0.2 }}
           >
             <div className="relative flex items-center">
-              {attachments!.slice(0, 2).map((src, imgIdx) => (
-                <motion.div
-                  key={imgIdx}
-                  className={`overflow-hidden rounded-lg bg-white shadow-xl ${
-                    imgIdx === 1 ? "absolute top-0 -right-10 z-10" : ""
-                  }`}
-                  initial={{
-                    opacity: 0,
-                    x: imgIdx * 20,
-                    y: imgIdx * 10,
-                    rotate: imgIdx === 0 ? -2 : 2,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    x: imgIdx * 20,
-                    y: imgIdx * 10,
-                    rotate: imgIdx === 0 ? -2 : 2,
-                  }}
-                  transition={{
-                    delay: imgIdx * 0.1,
-                    duration: 0.3,
-                  }}
-                >
-                  <Image
-                    loader={({ src }) => {
-                      return src;
-                    }}
-                    src={src || "/placeholder.svg"}
-                    alt={"attachment"}
-                    width={240}
-                    height={160}
-                    className="object-cover"
-                  />
-                </motion.div>
-              ))}
+              <motion.div
+                className="overflow-hidden rounded-lg bg-white shadow-xl"
+                initial={{
+                  opacity: 0,
+                  x: 0,
+                  y: 0,
+                  rotate: -2,
+                }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  rotate: -2,
+                }}
+                transition={{
+                  duration: 0.3,
+                }}
+              >
+                <Image
+                  loader={({ src }) => src}
+                  src={attachments[0] || "/placeholder.svg"}
+                  alt="attachment"
+                  width={240}
+                  height={160}
+                  className="object-cover"
+                />
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -167,7 +158,7 @@ export default function Content({
           </p>
         )}
       </div>
-      {showAction && (
+      {showAction && onEditClick && onDeleteClick && (
         <div className="opacity-0 transition-opacity group-hover:opacity-100">
           <ActionMenu onEditClick={onEditClick} onDeleteClick={onDeleteClick} />
         </div>

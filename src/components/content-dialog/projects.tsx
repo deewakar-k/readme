@@ -116,7 +116,7 @@ export const ProjectContent = () => {
     return uploadedUrls;
   };
 
-  const handleRemoveUrl = (urlToRemove) => {
+  const handleRemoveUrl = (urlToRemove: any) => {
     setValue(
       "existingAttachmentsUrls",
       existingAttachmentsUrls.filter((url) => url !== urlToRemove)
@@ -220,9 +220,8 @@ export const ProjectContent = () => {
             <Empty label="projects" />
           ) : (
             <>
-              {projects.map((project) => (
+              {projects?.map((project) => (
                 <Content
-                  id={project.id}
                   key={project.id}
                   header={project.date || ""}
                   title={project.name}

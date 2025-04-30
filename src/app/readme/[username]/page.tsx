@@ -10,11 +10,13 @@ import { WorkExperience } from "@/components/profile/work";
 import { db } from "@/db";
 import { auth } from "@/lib/auth";
 
-export default async function Page({
-  params,
-}: {
-  params: { username: string };
-}) {
+interface PageProps {
+  params: Promise<{
+    username: string;
+  }>;
+}
+
+export default async function Page({ params }: PageProps) {
   const { username } = await params;
   console.log("looking for: ", username);
 

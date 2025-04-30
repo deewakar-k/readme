@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 import { type Variants, motion, useAnimation } from "framer-motion";
-import { Globe } from "lucide-react";
+
+//import { Globe } from "lucide-react";
 
 import { User } from "@/types";
 

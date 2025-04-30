@@ -90,11 +90,11 @@ export const ContactsContent = () => {
         </form>
       ) : (
         <>
-          {contacts.length === 0 ? (
+          {contacts?.length === 0 ? (
             <Empty label="contacts" />
           ) : (
             <>
-              {contacts.map((contact, idx) => (
+              {contacts?.map((contact, idx) => (
                 <Content
                   header={contact.platform}
                   title={contact.username}

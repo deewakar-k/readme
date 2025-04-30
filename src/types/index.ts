@@ -1,11 +1,13 @@
 export interface User {
   name: string;
-  image: string;
-  username: string;
-  bio: string;
-  about: string;
-  website: string;
-  location: string;
+  username: string | null;
+  bio: string | null;
+  about: string | null;
+  website: string | null;
+  location: string | null;
+  email: string;
+  emailVerified: boolean;
+  image: string | null;
 }
 
 export interface Contact {
@@ -17,11 +19,11 @@ export interface Contact {
 export interface Experience {
   organization: string;
   role: string;
-  location: string;
-  description: string;
-  from: string;
-  to: string;
-  url: string;
+  description?: string | null;
+  url?: string | null;
+  location?: string | null;
+  from?: string | null;
+  to?: string | null;
 }
 
 export interface Project {

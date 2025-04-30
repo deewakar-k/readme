@@ -324,21 +324,13 @@ interface FileUploadRootProps
   multiple?: boolean;
   required?: boolean;
 }
-
 const FileUploadRoot = React.forwardRef<HTMLDivElement, FileUploadRootProps>(
   (props, forwardedRef) => {
     const {
       value,
       defaultValue,
       onValueChange,
-      onAccept,
-      onFileAccept,
-      onFileReject,
-      onFileValidate,
-      onUpload,
       accept,
-      maxFiles,
-      maxSize,
       dir: dirProp,
       label,
       name,
