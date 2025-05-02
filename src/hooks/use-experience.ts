@@ -13,12 +13,12 @@ export const useExperience = () => {
     error,
     isLoading,
     mutate,
-  } = useSWR(userId ? `experience-${userId}` : null, async (id) => {
-    if (!id) {
+  } = useSWR(userId ? `experience-${userId}` : null, async () => {
+    if (!userId) {
       return null;
     }
     try {
-      const result = await getExperience(id);
+      const result = await getExperience(userId);
       return result;
     } catch (error) {
       console.error("error fetching experience: ", error);

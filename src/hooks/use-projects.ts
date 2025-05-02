@@ -13,12 +13,12 @@ export const useProjects = () => {
     error,
     isLoading,
     mutate,
-  } = useSWR(userId ? `project-${userId}` : null, async (id) => {
-    if (!id) {
+  } = useSWR(userId ? `project-${userId}` : null, async () => {
+    if (!userId) {
       return null;
     }
     try {
-      const result = await getProjects(id);
+      const result = await getProjects(userId);
       return result;
     } catch (error) {
       console.error("error fetching projects: ", error);

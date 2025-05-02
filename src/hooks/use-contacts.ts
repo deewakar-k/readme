@@ -13,12 +13,12 @@ export const useContacts = () => {
     error,
     isLoading,
     mutate,
-  } = useSWR(userId ? `contact-${userId}` : null, async (id) => {
-    if (!id) {
+  } = useSWR(userId ? `contact-${userId}` : null, async () => {
+    if (!userId) {
       return null;
     }
     try {
-      const result = await getContacts(id);
+      const result = await getContacts(userId);
       return result;
     } catch (error) {
       console.error("error fetching contacts: ", error);

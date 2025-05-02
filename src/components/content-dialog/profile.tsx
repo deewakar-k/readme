@@ -34,6 +34,7 @@ export default function Profile() {
   const router = useRouter();
   const { data: user, isLoading, error } = useUser();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  console.log("user: ", user);
   const {
     register,
     handleSubmit,
@@ -158,7 +159,6 @@ export default function Profile() {
   );
 }
 
- 
 interface ProfileImageProps {
   user: any;
   onImageChange: (file: File | null) => void;

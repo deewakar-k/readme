@@ -13,12 +13,12 @@ export const useUser = () => {
     error,
     isLoading,
     mutate,
-  } = useSWR(userId ? `user-${userId}` : null, async (id) => {
-    if (!id) {
+  } = useSWR(userId ? `user-${userId}` : null, async () => {
+    if (!userId) {
       return null;
     }
     try {
-      const result = await getUser(id);
+      const result = await getUser(userId);
       return result;
     } catch (error) {
       console.error("error fetching user: ", error);

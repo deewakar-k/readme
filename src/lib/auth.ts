@@ -18,5 +18,7 @@ export const auth = betterAuth({
       clientSecret: env.GITHUB_CLIENT_SECRET,
     },
   },
-  trustedOrigins: env.BETTER_AUTH_TRUSTED_ORIGINS?.split(",") ?? [],
+  trustedOrigins:
+    env.BETTER_AUTH_TRUSTED_ORIGINS?.split(",") ??
+    "https://readme.deewakar.info",
 });
